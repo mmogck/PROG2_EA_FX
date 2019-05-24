@@ -1,6 +1,7 @@
 package control;
 
-import control.gamemanagement.QuestController;
+import view.ViewController;
+
 /**
  * Main Class of the game.
  *
@@ -11,6 +12,8 @@ public class Main
 
     public static void main(String[] args)
     {
-        QuestController.startQuest(1);
+        //QuestController.startQuest(1);
+        
+        ViewController.initializeGUI(args);
     }
 }

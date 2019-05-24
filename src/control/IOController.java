@@ -77,6 +77,11 @@ public class IOController
 
     }
 
+    public static void closeGame()
+    {
+        System.exit(0);
+    }
+    
     public static void showGameBoard(Quest quest)
     {
         MapController.printGameBoardToConsole(quest);

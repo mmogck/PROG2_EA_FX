@@ -54,6 +54,15 @@ public class GameBoard implements ISizedObject
         return this.tiles[tilePosition.getX()][tilePosition.getY()]
                 .getSquareAtSquarePosition(squarePosition);
     }
+    
+    public Square getSquareFromTileAndSquarePosition(int tile_x,
+                                                     int tile_y,
+                                                     int square_x,
+                                                     int square_y)
+    {
+        return this.tiles[tile_x][tile_y]
+                .getSquareAtSquarePosition(square_x, square_y);
+    }
 
     public Square getSquareFromPosition(Position position)
     {

@@ -35,4 +35,16 @@ public interface IFileConstants
     public final String FILE_PATH_Q5_M1 = "src/resources/maps/Q1_M1.json";
     public final String FILE_PATH_Q5_M2 = "src/resources/maps/Q1_M1.json";
     public final String FILE_PATH_Q5_M3 = "src/resources/maps/Q1_M1.json";
+    
+    //Dateien fuer die Scenes
+    public final String FILE_PATH_FXML_INGAME = "src/view/fxmlscenes/FXML_IngameScene.fxml";
+    
+    //Dateien fuer die Sprites
+    public final String FILE_PATH_SPRITE_FIELD = "src/resources/sprites/Field.png";
+    public final String FILE_PATH_SPRITE_ROCK = "src/resources/sprites/Rock.png";
+    public final String FILE_PATH_SPRITE_WATER = "src/resources/sprites/Water.png";
+    public final String FILE_PATH_SPRITE_TREE = "src/resources/sprites/Tree.png";
+    public final String FILE_PATH_SPRITE_HERO = "src/resources/sprites/Hero.png";
+    public final String FILE_PATH_SPRITE_ENEMY = "src/resources/sprites/Enemy.png";
+    public final String FILE_PATH_SPRITE_MARKED = "src/resources/sprites/Marked.png";
 }

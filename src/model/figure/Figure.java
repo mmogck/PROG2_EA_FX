@@ -1,6 +1,7 @@
 package model.figure;
 
 import control.ingamemanagement.FightController;
+import javafx.scene.image.Image;
 import model.ingamemanagement.Quest;
 import model.items.Equipment;
 import model.misc.Position;
@@ -17,11 +18,19 @@ public abstract class Figure
     private int attackPower;
     private int armorClass;
     private int movementPoints;
+    
     private Position position;
+    
     private Equipment equipment;
+    
+    private Image sprite;
 
-    public Figure(int healthPoints, int attackPower, int armorClass,
-                  int movementPoints, Position location, Equipment equipment)
+    public Figure(int healthPoints,
+                  int attackPower,
+                  int armorClass,
+                  int movementPoints,
+                  Position location,
+                  Equipment equipment)
     {
         this.healthPoints = healthPoints;
         this.attackPower = attackPower;
@@ -106,4 +115,13 @@ public abstract class Figure
         this.equipment = equipment;
     }
 
+    public Image getSprite()
+    {
+        return sprite;
+    }
+
+    public void setSprite(Image sprite)
+    {
+        this.sprite = sprite;
+    }
 }

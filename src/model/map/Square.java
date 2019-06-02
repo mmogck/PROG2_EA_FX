@@ -1,5 +1,6 @@
 package model.map;
 
+import javafx.scene.image.Image;
 import view.IOColor;
 
 /**
@@ -17,7 +18,7 @@ public class Square
     private final int impediment;
     
     private final char symbol;
-    private final Object sprite;
+    private final Image sprite;
 
     public Square(ESquare eSquare)
     {
@@ -29,7 +30,7 @@ public class Square
         this.impediment = eSquare.getImpediment();
         
         this.symbol = eSquare.getSymbol();
-        this.sprite = null;
+        this.sprite = eSquare.getSprite();
     }
 
     public void setMarked(boolean marked)

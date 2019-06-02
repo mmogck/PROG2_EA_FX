@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.fxmlcontroller.FXML_IngameSceneController">
+<AnchorPane id="AnchorPane" fx:id="anchorpane_root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.fxmlcontroller.FXML_IngameSceneController">
    <children>
       <SplitPane dividerPositions="0.5" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -17,6 +17,7 @@
                   <Menu mnemonicParsing="false" text="File">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#handleMenuFileCloseAction" text="Close" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleMenuFileNewQuestAction" text="New Quest" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Edit">
@@ -52,9 +53,6 @@
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <Label alignment="TOP_LEFT" layoutX="69.0" layoutY="29.0" prefHeight="74.0" prefWidth="764.0" text="-´" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <cursor>
-                                    <Cursor fx:constant="TEXT" />
-                                 </cursor>
                               </Label>
                            </children></AnchorPane>
                      </items>

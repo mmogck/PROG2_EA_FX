@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="iv_field" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="iv_rock" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="iv_water" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="iv_tree" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="iv_enemy" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="iv_hero" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="iv_marked" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</StackPane>

@@ -21,7 +21,7 @@ public class MoveController
                                               Quest quest)
     {
         showMovementRadius(quest, hero);
-        IOController.showGameBoard(quest);
+        IOController.printGameBoard(quest);
         moveFigure(hero, getNewHeroPosition(quest.getGameBoard()));
         MapController.resetMarks(quest.getGameBoard());
     }

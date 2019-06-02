@@ -1,13 +1,14 @@
 package control;
 
 import control.ingamemanagement.MoveController;
-import control.map.MapController;
 import model.figure.Hero;
 import model.ingamemanagement.Quest;
 import model.misc.Position;
 import resources.gameconstants.IGameConstants;
 import resources.gameconstants.IOutputStrings;
 import view.IOColor;
+import view.ViewController;
+import view.fxmlcontroller.FXML_IngameSceneController;
 
 /**
  * Class for all Methods giving an output or requiring an input.
@@ -17,8 +18,6 @@ import view.IOColor;
 public class IOController
 {
 
-    //Methode für Informationsausgaben, kann für Konsole und GUI
-    //verwendet werden
     public static void printMessage(String text)
     {
         printMessage(text, IOColor.FONT_BLACK);
@@ -31,6 +30,17 @@ public class IOController
     
     ///////////////////////////////////////////////////////////////////////////
 
+//    public static void printGameBoard(Quest quest)
+//    {
+//        MapController.printGameBoardToConsole(quest);
+//    }
+    
+    public static void printGameBoard(Quest quest)
+    {
+        FXML_IngameSceneController test = ViewController.getLoader().getController();
+        test.printGameBoard(quest);
+    }
+    
     public static void printActivePhase(String activePhase, int actionPoints)
     {
 
@@ -55,6 +65,18 @@ public class IOController
                                          activeHero.toString());
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    
+    public static Position getPositionInput(Position position)
+    {
+        return position;
+    }
+    
+    public static void processPositionInput()
+    {
+        
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
     
     public static void selectSavegame()
@@ -82,10 +104,7 @@ public class IOController
         System.exit(0);
     }
     
-    public static void showGameBoard(Quest quest)
-    {
-        MapController.printGameBoardToConsole(quest);
-    }
+    
 
     public static void showStats()
     {

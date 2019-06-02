@@ -30,7 +30,7 @@ public class QuestController
         activeGameLoop = new GameLoop(quest);
     }
 
-    private static Hero[] initializeHeroes()
+    public static Hero[] initializeHeroes()
     {
         //Werte vom Held anpassen !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         

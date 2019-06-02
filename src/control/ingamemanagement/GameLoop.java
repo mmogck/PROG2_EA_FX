@@ -37,6 +37,7 @@ public class GameLoop
     {
         do
         {
+            System.out.println("gameloop");
             IOController.printHeroInfo(this.getActiveQuest().getActiveHero());
             
             switch (nextPhase())
@@ -66,7 +67,7 @@ public class GameLoop
 
     private void showGameBoard()
     {
-        IOController.showGameBoard(this.activeQuest);
+        IOController.printGameBoard(this.activeQuest);
     }
 
     private void startHeroPhase()

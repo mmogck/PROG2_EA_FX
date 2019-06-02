@@ -1,5 +1,7 @@
 package view.viewmodels;
 
+import javafx.scene.layout.Pane;
+
 /**
  * Interface for viewmodels which should adapt their size to the parents size.
  * 
@@ -7,5 +9,11 @@ package view.viewmodels;
  */
 public interface IAutoSizable
 {
-    public abstract void adaptSize();
+    public static void adaptSize(Pane pane)
+    {
+        Pane parent = (Pane) pane.getParent();
+
+        pane.prefWidthProperty().bind(parent.prefWidthProperty());
+        pane.prefHeightProperty().bind(parent.prefHeightProperty());
+    }
 }

@@ -1,8 +1,10 @@
 package view.viewmodels;
 
 import javafx.scene.layout.GridPane;
+import model.ingamemanagement.Quest;
 import model.misc.Position;
 import resources.gameconstants.IGameConstants;
+import resources.gameconstants.IGuiConstants;
 
 /**
  *
@@ -16,17 +18,34 @@ public class FXGameboard extends GridPane
     {
         fxtiles = new FXTile[IGameConstants.GAMEBOARD_TILES_WIDTH][IGameConstants.GAMEBOARD_TILES_HEIGHT];
         
+        this.setVgap(IGuiConstants.GAMEBOARD_TILES_GAP);
+        this.setHgap(IGuiConstants.GAMEBOARD_TILES_GAP);
+        
         initializeFXTiles();
     }
 
     private void initializeFXTiles()
     {
-        for (int i = 0; i < fxtiles.length; i++)
+        for (int y = 0; y < fxtiles.length; y++)
         {
-            for (int j = 0; j < fxtiles[0].length; j++)
+            for (int x = 0; x < fxtiles[0].length; x++)
             {
-                fxtiles[i][j] = new FXTile();
-                this.getChildren().add(fxtiles[i][j]);
+                fxtiles[x][y] = new FXTile(new Position(x, y));
+                
+                GridPane.setConstraints(fxtiles[x][y], x, y);
+                
+                this.getChildren().add(fxtiles[x][y]);
+            }
+        }
+    }
+    
+    public void printTiles(Quest quest)
+    {
+        for (int y = 0; y < fxtiles.length; y++)
+        {
+            for (int x = 0; x < fxtiles[0].length; x++)
+            {
+                fxtiles[x][y].printSquares(quest);
             }
         }
     }

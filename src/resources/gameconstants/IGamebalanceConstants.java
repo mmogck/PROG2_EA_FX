@@ -12,4 +12,7 @@ public interface IGamebalanceConstants
     public final int IMPEDIMENT_WATER = 4;
     
     public final int HERO_ACTION_POINTS = 2;
+    
+    public final float LVLMULTIPLIER_BASE_VALUE = 0.7f;
+    public final float LVLMULTIPLIER_SCALING = 0.1f;
 }

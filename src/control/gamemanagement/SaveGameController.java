@@ -36,6 +36,12 @@ public class SaveGameController
 
     private static Savegame activeSavegame = null;
 
+    /**
+     * Selects and loads a savegame by its number. If there is no savegame for
+     * the number a new one gets created.
+     *
+     * @param number Savegame number
+     */
     public static void selectSavegame(int number)
     {
         if (isFileEmpty(new File(getFilePathToSavegameFile(number))))
@@ -52,6 +58,12 @@ public class SaveGameController
         }
     }
 
+    /**
+     * Creates a new savegame.
+     *
+     * @param number
+     * @return new savegame
+     */
     private static Savegame createNewSavegame(int number)
     {
         HashMap<String, Boolean> difficultyMap = new HashMap<>();
@@ -71,6 +83,11 @@ public class SaveGameController
         return new Savegame(number, 0, 0, questProgress);
     }
 
+    /**
+     * Saves the currently loaded savegame.
+     *
+     * @param savegame
+     */
     public static void saveGame(Savegame savegame)
     {
         try
@@ -103,6 +120,12 @@ public class SaveGameController
         }
     }
 
+    /**
+     * Loads a savegame from its savegame file.
+     *
+     * @param filePath filepath to the savegame file
+     * @return
+     */
     public static Savegame loadGame(String filePath)
     {
         try
@@ -139,11 +162,23 @@ public class SaveGameController
         return null;
     }
 
+    /**
+     * Loads a savegame from its savegame number.
+     *
+     * @param number savegame number
+     * @return Savagame
+     */
     public static Savegame loadGame(int number)
     {
         return loadGame(getFilePathToSavegameFile(number));
     }
 
+    /**
+     * Checks wether a savegame file is empty or not.
+     *
+     * @param file file to be checked
+     * @return true if file is empty
+     */
     private static boolean isFileEmpty(File file)
     {
         FileReader fr = null;
@@ -180,6 +215,12 @@ public class SaveGameController
         return false;
     }
 
+    /**
+     * Returns the filepath to the savegame file by its number.
+     *
+     * @param number
+     * @return String (filepath)
+     */
     private static String getFilePathToSavegameFile(int number)
     {
         try
@@ -204,6 +245,7 @@ public class SaveGameController
         return null;
     }
 
+    //Getter and Setter
     public static Savegame getActiveSavegame()
     {
         return activeSavegame;

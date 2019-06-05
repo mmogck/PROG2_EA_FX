@@ -1,6 +1,8 @@
 package model.figure;
 
+import javafx.scene.image.Image;
 import model.items.Equipment;
+import view.ESprites;
 
 /**
  * Contains all the different types of enemies.
@@ -9,22 +11,25 @@ import model.items.Equipment;
  */
 public enum EnemyEnum
 {
-    ENEMY1(100, 10, 2, null),
-    ENEMY2(100, 15, 4, null),
-    ENEMY3(100, 20, 6, null),
-    ENEMY4(100, 25, 8, null),
-    ENEMY5(100, 50, 10, null);
+
+    ENEMY1(100, 10, 2, null, ESprites.ENEMY.getImage()),
+    ENEMY2(100, 15, 4, null, ESprites.ENEMY.getImage()),
+    ENEMY3(100, 20, 6, null, ESprites.ENEMY.getImage()),
+    ENEMY4(100, 25, 8, null, ESprites.ENEMY.getImage()),
+    ENEMY5(100, 50, 10, null, ESprites.ENEMY.getImage());
 
     private EnemyEnum(int healthPoints,
                       int attackPower,
                       int armorClass,
-                      Equipment equipment)
+                      Equipment equipment,
+                      Image sprite)
     {
         this.healthPoints = healthPoints;
         this.attackPower = attackPower;
         this.armorClass = armorClass;
 
         this.equipment = equipment;
+        this.sprite = sprite;
     }
 
     private int healthPoints;
@@ -33,11 +38,13 @@ public enum EnemyEnum
 
     private Equipment equipment;
 
+    private Image sprite;
+
     public String getName()
     {
         return this.name();
     }
-    
+
     public int getHealthPoints()
     {
         return healthPoints;
@@ -56,5 +63,10 @@ public enum EnemyEnum
     public Equipment getEquipment()
     {
         return equipment;
+    }
+
+    public Image getSprite()
+    {
+        return sprite;
     }
 }

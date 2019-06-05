@@ -12,6 +12,7 @@ import model.misc.Dice;
 import model.misc.Position;
 import resources.gameconstants.IFileConstants;
 import resources.gameconstants.IGameConstants;
+import view.ESprites;
 
 /**
  * Holds the gameloop of the active quest.
@@ -47,10 +48,14 @@ public class QuestController
         //Werte vom Held anpassen !!!!!!!!!!!!!
 
         Hero[] heroesToSort = new Hero[4];
-        heroesToSort[0] = new Hero(100, 5, 5, 3, new Position(11, 11), new Equipment());
-        heroesToSort[1] = new Hero(100, 5, 5, 4, new Position(11, 13), new Equipment());
-        heroesToSort[2] = new Hero(100, 5, 5, 5, new Position(13, 11), new Equipment());
-        heroesToSort[3] = new Hero(100, 5, 5, 6, new Position(13, 13), new Equipment());
+        heroesToSort[0] = new Hero(100, 5, 5, 3, new Position(11, 11),
+                                   new Equipment(), ESprites.HERO.getImage());
+        heroesToSort[1] = new Hero(100, 5, 5, 4, new Position(11, 13),
+                                   new Equipment(), ESprites.HERO.getImage());
+        heroesToSort[2] = new Hero(100, 5, 5, 5, new Position(13, 11),
+                                   new Equipment(), ESprites.HERO.getImage());
+        heroesToSort[3] = new Hero(100, 5, 5, 6, new Position(13, 13),
+                                   new Equipment(), ESprites.HERO.getImage());
 
         PlayerHeap heap = new PlayerHeap(4);
 
@@ -68,8 +73,7 @@ public class QuestController
     }
 
     /**
-     * Method for ending the Quest. Saves progress if quest ended
-     * successfully.
+     * Method for ending the Quest. Saves progress if quest ended successfully.
      *
      * @param successfully
      */
@@ -157,10 +161,11 @@ public class QuestController
     }
 
     /**
-     * Returns a map with quest as key and the status as value.
-     * If the status is true, the quest is completed.
+     * Returns a map with quest as key and the status as value. If the status is
+     * true, the quest is completed.
+     *
      * @param savegame
-     * @return 
+     * @return
      */
     public static Map<Integer, Boolean> getUnlockedQuests(Savegame savegame)
     {
@@ -175,9 +180,10 @@ public class QuestController
     /**
      * Method for checking if a quest is unlocked. For a quest to be unlocked
      * the previous quest must be completed.
+     *
      * @param number
      * @param savegame
-     * @return 
+     * @return
      */
     public static boolean isQuestUnlocked(int number, Savegame savegame)
     {

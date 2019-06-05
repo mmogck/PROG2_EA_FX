@@ -1,8 +1,9 @@
 package control.map;
 
 /**
+ * Handles the Effects triggered by tiles.
  * 
- * @author TSB8TG
+ * @author Markus Mogck
  */
 public class TileEffectController {
 

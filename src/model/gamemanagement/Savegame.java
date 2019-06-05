@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import resources.gameconstants.IGamebalanceConstants;
 
 /**
  * Savegame class for saving game progress.
@@ -18,6 +19,15 @@ public class Savegame implements Serializable
     private int experience;
     private TreeMap<Integer, HashMap<String, Boolean>> questProgress;
 
+    /**
+     * Constructor for Savegame. Sets up number, level, experience and quest
+     * progress.
+     *
+     * @param number
+     * @param level
+     * @param experience
+     * @param questProgress
+     */
     public Savegame(int number,
                     int level,
                     int experience,
@@ -29,11 +39,18 @@ public class Savegame implements Serializable
         this.questProgress = questProgress;
     }
 
+    /**
+     * Method for calculating multiplier scaling with level.
+     *
+     * @return float value as the multiplier for scaling things.
+     */
     public float getDifficultyMultiplier()
     {
-        return 0.7f + (level * 0.1f);
+        return IGamebalanceConstants.LVLMULTIPLIER_BASE_VALUE
+               + (level * IGamebalanceConstants.LVLMULTIPLIER_SCALING);
     }
 
+    //Getter and Setter
     public int getNumber()
     {
         return this.number;

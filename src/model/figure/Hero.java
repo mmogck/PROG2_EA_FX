@@ -1,6 +1,7 @@
 package model.figure;
 
 import control.ingamemanagement.MoveController;
+import javafx.scene.image.Image;
 import model.ingamemanagement.Quest;
 import model.items.Equipment;
 import model.misc.Position;
@@ -18,14 +19,16 @@ public class Hero extends Figure
                 int armorClass,
                 int movementPoints,
                 Position location,
-                Equipment equipment)
+                Equipment equipment,
+                Image sprite)
     {
         super(healthPoints,
               attackPower,
               armorClass,
               movementPoints,
               location,
-              equipment);
+              equipment,
+              sprite);
     }
 
     @Override
@@ -33,15 +36,15 @@ public class Hero extends Figure
     {
         MoveController.initializeHeroMovement(this, quest);
     }
-    
+
     @Override
     public String toString()
     {
         return "Figure: Hero" + "; "
-                + "Position: " + super.getPosition() + "; "
-                + "Health Points: " + super.getHealthPoints() + "; "
-                + "Attack Power: " + super.getAttackPower() + "; "
-                + "Armor Class: " + super.getArmorClass() + "; "
-                + "Equipment: " + super.getEquipment();
+               + "Position: " + super.getPosition() + "; "
+               + "Health Points: " + super.getHealthPoints() + "; "
+               + "Attack Power: " + super.getAttackPower() + "; "
+               + "Armor Class: " + super.getArmorClass() + "; "
+               + "Equipment: " + super.getEquipment();
     }
 }

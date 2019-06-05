@@ -9,7 +9,7 @@ import model.misc.Position;
 /**
  * Figure class.
  *
- * @author Jonas Ulrich
+ * @author Jonas Ulrich, Markus Mogck
  */
 public abstract class Figure
 {
@@ -30,7 +30,8 @@ public abstract class Figure
                   int armorClass,
                   int movementPoints,
                   Position location,
-                  Equipment equipment)
+                  Equipment equipment,
+                  Image sprite)
     {
         this.healthPoints = healthPoints;
         this.attackPower = attackPower;
@@ -38,6 +39,7 @@ public abstract class Figure
         this.movementPoints = movementPoints;
         this.position = location;
         this.equipment = equipment;
+        this.sprite =  sprite;
     }
 
     public abstract void move(Quest quest);

@@ -22,7 +22,8 @@ public class Enemy extends Figure
               enemyType.getArmorClass(),
               0,
               position,
-              enemyType.getEquipment());
+              enemyType.getEquipment(),
+              enemyType.getSprite());
     }
 
     @Override

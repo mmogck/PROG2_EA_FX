@@ -22,6 +22,11 @@ public class GameLoop extends Thread
     private boolean foundNewTile;
     private int heroActionPoints;
 
+    /**
+     * Constructor of GameLoop class.
+     *
+     * @param quest
+     */
     public GameLoop(Quest quest)
     {
         this.activeQuest = quest;
@@ -31,6 +36,10 @@ public class GameLoop extends Thread
         this.foundNewTile = false;
     }
 
+    /**
+     * Starts the first phase of a game. This is an extra method because the
+     * first execute must wait for the gui to be loaded.
+     */
     public void firstExecutePhase()
     {
         IOController.printHeroInfo(this.activeQuest.getActiveHero());
@@ -40,16 +49,16 @@ public class GameLoop extends Thread
         executePhase();
     }
 
+    /**
+     * Executes the acitve phase and starts special actions for each phase. Also
+     * the gameboard and quest-informations are getting printed to the scene
+     * before and after the phase.
+     */
     private void executePhase()
     {
         if (!this.activeQuest.isQuestObjectiveAchieved())
         {
-            MapController.resetMarks(this.getActiveQuest().getGameBoard());
-
-            showGameBoard();
-
-            IOController.printHeroInfo(this.getActiveQuest().getActiveHero());
-            IOController.printActivePhase(this.activePhase, this.heroActionPoints);
+            printGUI();
 
             switch (this.activePhase)
             {
@@ -69,21 +78,33 @@ public class GameLoop extends Thread
                 default:
                     break;
             }
-
-            showGameBoard();
         }
     }
 
-    private void showGameBoard()
+    /**
+     * Method for printing all important informations to the GUI.
+     */
+    private void printGUI()
     {
+        MapController.resetMarks(this.getActiveQuest().getGameBoard());
+
         IOController.printGameBoard(this.activeQuest);
+
+        IOController.printHeroInfo(this.getActiveQuest().getActiveHero());
+        IOController.printActivePhase(this.activePhase, this.heroActionPoints);
     }
 
+    /**
+     * Method for the Hero-Phase.
+     */
     private void startHeroPhase()
     {
         IOController.initializeHeroMovement();
     }
 
+    /**
+     * Method for the Exploration-Phase. New found tiles are getting shown.
+     */
     private void startExplorationPhase()
     {
         this.foundNewTile
@@ -96,12 +117,18 @@ public class GameLoop extends Thread
                         this.activeQuest.getActiveHero().getPosition());
     }
 
+    /**
+     * Method for the Event-Phase.
+     */
     private void startEventPhase()
     {
         //do event stuff
         this.foundNewTile = false;
     }
 
+    /**
+     * Method for the Enemy-Phase. Enemies are moving and attacking.
+     */
     private void startEnemyPhase()
     {
         for (Enemy enemy : this.activeQuest.getEnemies())
@@ -120,19 +147,25 @@ public class GameLoop extends Thread
         }
     }
 
+    /**
+     * Next phase is getting initialized and executed.
+     */
     public void nextPhase()
     {
         getNextPhase();
         executePhase();
     }
 
+    /**
+     * Sets up the following phase.
+     */
     private void getNextPhase()
     {
         switch (activePhase)
         {
             case IGameConstants.HERO_PHASE:
                 this.heroActionPoints--;
-                
+
                 if (heroActionPoints > 0)
                 {
                     returnPhase(IGameConstants.HERO_PHASE);
@@ -161,6 +194,11 @@ public class GameLoop extends Thread
         }
     }
 
+    /**
+     * Sets the following phase.
+     *
+     * @param phase
+     */
     private void returnPhase(String phase)
     {
         //Action-Points + 1, da der aktuelle schon abgezogen wurde
@@ -168,6 +206,11 @@ public class GameLoop extends Thread
         this.activePhase = phase;
     }
 
+    /**
+     * Method for finding the next hero in queue.
+     *
+     * @return next hero
+     */
     private Hero nextHero()
     {
         //Suche nach aktuellem Held
@@ -191,6 +234,7 @@ public class GameLoop extends Thread
         return this.activeQuest.getHeroes()[0];
     }
 
+    //Getter and Setter
     public Quest getActiveQuest()
     {
         return activeQuest;

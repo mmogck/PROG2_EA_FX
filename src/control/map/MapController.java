@@ -32,6 +32,11 @@ import view.IOColor;
 public class MapController
 {
 
+    /**
+     * Prints the gameboard to console.
+     *
+     * @param quest active quest
+     */
     public static void printGameBoardToConsole(Quest quest)
     {
         String output = "";
@@ -75,6 +80,11 @@ public class MapController
         System.out.println(output);
     }
 
+    /**
+     * Resets the marked squares
+     *
+     * @param gameBoard
+     */
     public static void resetMarks(GameBoard gameBoard)
     {
         for (int i = 0; i < IGameConstants.GAMEBOARD_TILES_HEIGHT; i++)
@@ -97,6 +107,13 @@ public class MapController
         }
     }
 
+    /**
+     * Checks wether the player found a new tile at its current position and
+     * uncovers it if found.
+     *
+     * @param quest active quest
+     * @param position current position of the hero
+     */
     public static void exploreNewFoundTileVisibleIfFound(Quest quest,
                                                          Position position)
     {
@@ -116,6 +133,12 @@ public class MapController
         }
     }
 
+    /**
+     * Checks wether a position is on the edge of a tile.
+     *
+     * @param position position to be checked
+     * @return true if position is at tile edge
+     */
     public static boolean isPositionAtNewTileEdge(Position position)
     {
         return ((position.toSquarePosition().getX() == 0)
@@ -126,51 +149,78 @@ public class MapController
                        == IGameConstants.GAMEBOARD_SQUARES_HEIGHT - 1));
     }
 
+    /**
+     * Returns the position of the new found tile.
+     *
+     * @param gameBoard active gameboard
+     * @param position player position
+     * @return tile position
+     */
     private static Position getNewFoundTilePosition(GameBoard gameBoard,
                                                     Position position)
     {
         if (position.toSquarePosition().getX() == 0)
         {
-            return Position.getTileFromPosition(
-                    position.getX() - 1,
-                    position.getY());
+            return Position.getTileFromPosition(position.getX() - 1,
+                                                position.getY());
         } else if (position.toSquarePosition().getX()
                    == IGameConstants.GAMEBOARD_SQUARES_WIDTH - 1)
         {
-            return Position.getTileFromPosition(
-                    position.getX() + 1,
-                    position.getY());
+            return Position.getTileFromPosition(position.getX() + 1,
+                                                position.getY());
         } else if (position.toSquarePosition().getY() == 0)
         {
-            return Position.getTileFromPosition(
-                    position.getX(),
-                    position.getY() - 1);
+            return Position.getTileFromPosition(position.getX(),
+                                                position.getY() - 1);
         } else if (position.toSquarePosition().getY()
                    == IGameConstants.GAMEBOARD_SQUARES_HEIGHT - 1)
         {
-            return Position.getTileFromPosition(
-                    position.getX(),
-                    position.getY() + 1);
+            return Position.getTileFromPosition(position.getX(),
+                                                position.getY() + 1);
         }
 
         return null;
     }
 
+    /**
+     * Creates new gameboard form filepath to json template.
+     *
+     * @param filepath filepath to json file
+     * @return new GameBoard
+     */
     public static GameBoard getNewGameBoard(String filepath)
     {
         return createGameBoardFromJsonMap(getJsonMapFromJsonFile(filepath));
     }
 
+    /**
+     * Returns the enemies saved at the json map.
+     *
+     * @param filepath filepath to json file
+     * @return Array List of enemies
+     */
     public static ArrayList<Enemy> getEnemysFromJsonMap(String filepath)
     {
         return getEnemysFromJsonMap(getJsonMapFromJsonFile(filepath));
     }
 
+    /**
+     * Returns the enemies saved at the json map.
+     *
+     * @param jsonMap json map
+     * @return Array List of enemies
+     */
     private static ArrayList<Enemy> getEnemysFromJsonMap(JsonMap jsonMap)
     {
         return jsonMap.getEnemies();
     }
 
+    /**
+     * Creates GameBoard from JsonMap.
+     *
+     * @param jsonMap
+     * @return new GameBoard
+     */
     private static GameBoard createGameBoardFromJsonMap(JsonMap jsonMap)
     {
         GameBoard gameBoard
@@ -178,21 +228,29 @@ public class MapController
                                   IGameConstants.GAMEBOARD_TILES_HEIGHT);
 
         //Y-Wert der Tiles
-        for (int i = 0; i < gameBoard.getHeight(); i++)
+        for (int y = 0; y < gameBoard.getHeight(); y++)
         {
             //X-Wert der Tiles
-            for (int j = 0; j < gameBoard.getWidth(); j++)
+            for (int x = 0; x < gameBoard.getWidth(); x++)
             {
                 //Neues Tile auf dem GameBoard platzieren
-                gameBoard.setTileAtTilePosition(j, i,
+                gameBoard.setTileAtTilePosition(x, y,
                                                 getNewTileFromJsonMap(
-                                                        jsonMap, j, i));
+                                                        jsonMap, x, y));
             }
         }
 
         return gameBoard;
     }
 
+    /**
+     * Returns new tile at the given position from json map.
+     *
+     * @param jsonMap
+     * @param tile_x tile position x
+     * @param tile_y tile position y
+     * @return new Tile
+     */
     private static Tile getNewTileFromJsonMap(JsonMap jsonMap,
                                               int tile_x, int tile_y)
     {
@@ -236,12 +294,25 @@ public class MapController
         return newTile;
     }
 
+    /**
+     * Checks wether the tile at the given position is the start tile.
+     *
+     * @param tilePosition
+     * @param jsonMap
+     * @return true if its the start tile
+     */
     private static boolean isTileStartTile(Position tilePosition,
                                            JsonMap jsonMap)
     {
         return tilePosition.equals(jsonMap.getStartTilePosition());
     }
 
+    /**
+     * Returns a JsonMap from filepath to the json file.
+     *
+     * @param filepath filepath to json file
+     * @return new JsonMap
+     */
     private static JsonMap getJsonMapFromJsonFile(String filepath)
     {
         Gson gson = getGsonBuilder();
@@ -256,15 +327,27 @@ public class MapController
         }
     }
 
+    /**
+     * GsonBuilder for reading Json files.
+     *
+     * @return created GsonBuilder with PrettyPrinting
+     */
     private static Gson getGsonBuilder()
     {
         return new GsonBuilder().setPrettyPrinting().create();
     }
 
-    public static Square getSquareFromChar(char chartoconvert)
+    /**
+     * Creates new square from the Char at the json file
+     *
+     * @param charToConvert charachter to convert
+     * @return new Square
+     * @throws InvalidSquareCharacterException
+     */
+    public static Square getSquareFromChar(char charToConvert)
             throws InvalidSquareCharacterException
     {
-        switch (chartoconvert)
+        switch (charToConvert)
         {
             case IGameConstants.FIELD_CHAR:
                 return new Square(ESquare.FIELD);
@@ -280,6 +363,12 @@ public class MapController
         }
     }
 
+    /**
+     * Returns an empty string array with given length.
+     *
+     * @param lenght length of the array
+     * @return new array of empty strings ("", not null)
+     */
     private static String[] getEmptyStringArray(int lenght)
     {
         String[] lines = new String[lenght];
@@ -292,6 +381,17 @@ public class MapController
         return lines;
     }
 
+    /**
+     * Returns the String of the square at the given position for the console
+     * output.
+     *
+     * @param quest active quest
+     * @param tile_x tile position x
+     * @param tile_y tile position y
+     * @param square_x square position x
+     * @param square_y square position y
+     * @return String with square sequence
+     */
     private static String getStringForGameBoard(Quest quest,
                                                 int tile_x,
                                                 int tile_y,
@@ -337,6 +437,9 @@ public class MapController
 
     }
 
+    /**
+     * JsonMap for getting a gameboard form json file.
+     */
     private class JsonMap implements ISizedObject
     {
 
@@ -405,8 +508,12 @@ public class MapController
             return this.jsonMap[0].length;
         }
 
+        /**
+         * Enemy Class in json format.
+         */
         private class JsonEnemy
         {
+
             private EnemyEnum enemyType;
             private Position position;
 

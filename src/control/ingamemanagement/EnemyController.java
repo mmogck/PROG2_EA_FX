@@ -15,6 +15,12 @@ import model.misc.Position;
 public class EnemyController
 {
 
+    /**
+     * Moves an enemy to its focused hero.
+     *
+     * @param enemy enemy to be moved
+     * @param quest active quest
+     */
     public static void moveEnemyToFocusedHero(Enemy enemy,
                                               Quest quest)
     {
@@ -23,6 +29,16 @@ public class EnemyController
                                                    quest));
     }
 
+    /**
+     * Returns the new position of the enemy to be moved. Therefor the Positions
+     * on the right, left, bottom and topof the focused hero are checked for
+     * obstacles and the first possible position gets returned.
+     *
+     * @param focusedHero
+     * @param enemy enemy to be moved
+     * @param quest active quest
+     * @return
+     */
     private static Position getPositionAtFocusedHero(Hero focusedHero,
                                                      Enemy enemy,
                                                      Quest quest)
@@ -33,13 +49,16 @@ public class EnemyController
         if (checkPossiblePosition(new Position(x + 1, y), enemy, quest))
         {
             return new Position(x + 1, y);
-        } else if (checkPossiblePosition(new Position(x - 1, y), enemy, quest))
+        } else if (checkPossiblePosition(new Position(x - 1, y),
+                                         enemy, quest))
         {
             return new Position(x - 1, y);
-        } else if (checkPossiblePosition(new Position(x, y + 1), enemy, quest))
+        } else if (checkPossiblePosition(new Position(x, y + 1),
+                                         enemy, quest))
         {
             return new Position(x, y + 1);
-        } else if (checkPossiblePosition(new Position(x, y - 1), enemy, quest))
+        } else if (checkPossiblePosition(new Position(x, y - 1),
+                                         enemy, quest))
         {
             return new Position(x, y - 1);
         }
@@ -47,6 +66,14 @@ public class EnemyController
         return enemy.getPosition();
     }
 
+    /**
+     * New possible position for the enemy is checked for obstacles.
+     *
+     * @param position position to be checked
+     * @param activeEnemy active enemy
+     * @param quest active quest
+     * @return
+     */
     private static boolean checkPossiblePosition(Position position,
                                                  Enemy activeEnemy,
                                                  Quest quest)
@@ -78,6 +105,13 @@ public class EnemyController
         return reachable;
     }
 
+    /**
+     * If an new tile gets explored, all enemies on this tile are getting active
+     * and focus a hero.
+     *
+     * @param quest active quest
+     * @param tilePosition new tile
+     */
     public static void setEnemiesActiveAndGiveFocusedHero(Quest quest,
                                                           Position tilePosition)
     {
@@ -88,6 +122,13 @@ public class EnemyController
         }
     }
 
+    /**
+     * Returns all enemies on a tile.
+     *
+     * @param tilePosition
+     * @param quest
+     * @return Array List with all enemies at this tile
+     */
     private static ArrayList<Enemy> getAllEnemiesAtTile(Position tilePosition,
                                                         Quest quest)
     {

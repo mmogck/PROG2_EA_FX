@@ -95,8 +95,6 @@ public class IOController
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    private ClickOnGameBoardStatus clickOnGameBoardStatus;
-
     private enum ClickOnGameBoardStatus
     {
 
@@ -136,7 +134,10 @@ public class IOController
                 break;
 
             case GET_INFO:
-
+                getIngameSceneController()
+                        .printFieldInfo(position,
+                                        QuestController
+                                        .getActiveGameLoop().getActiveQuest());
                 break;
 
             default:

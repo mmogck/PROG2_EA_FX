@@ -35,7 +35,7 @@ public class FXSquare extends StackPane
         this.position = position;
 
         initialize();
-        
+
         this.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -77,7 +77,7 @@ public class FXSquare extends StackPane
         printHero(quest);
         printMarked(quest);
     }
-    
+
     public void printAsNotVisible()
     {
         this.empty.toFront();
@@ -112,7 +112,8 @@ public class FXSquare extends StackPane
     {
         for (Enemy enemyFromQuest : quest.getEnemies())
         {
-            if (enemyFromQuest.getPosition().equals(this.position))
+            if (enemyFromQuest.getPosition().equals(this.position)
+                && enemyFromQuest.isAlive())
             {
                 this.enemy.toFront();
             }
@@ -123,7 +124,8 @@ public class FXSquare extends StackPane
     {
         for (Hero heroFromQuest : quest.getHeroes())
         {
-            if (heroFromQuest.getPosition().equals(this.position))
+            if (heroFromQuest.getPosition().equals(this.position)
+                && heroFromQuest.isAlive())
             {
                 this.hero.toFront();
             }

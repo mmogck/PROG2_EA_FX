@@ -35,16 +35,21 @@ public class GameLoop extends Thread
     {
         IOController.printHeroInfo(this.activeQuest.getActiveHero());
         IOController.printActivePhase(this.activePhase, this.heroActionPoints);
+
+        //getNextPhase();
         executePhase();
     }
-    
+
     private void executePhase()
     {
         if (!this.activeQuest.isQuestObjectiveAchieved())
         {
             MapController.resetMarks(this.getActiveQuest().getGameBoard());
+
             showGameBoard();
+
             IOController.printHeroInfo(this.getActiveQuest().getActiveHero());
+            IOController.printActivePhase(this.activePhase, this.heroActionPoints);
 
             switch (this.activePhase)
             {
@@ -126,10 +131,10 @@ public class GameLoop extends Thread
         switch (activePhase)
         {
             case IGameConstants.HERO_PHASE:
-
+                this.heroActionPoints--;
+                
                 if (heroActionPoints > 0)
                 {
-                    this.heroActionPoints--;
                     returnPhase(IGameConstants.HERO_PHASE);
                 } else
                 {
@@ -149,9 +154,8 @@ public class GameLoop extends Thread
                 do
                 {
                     this.activeQuest.setActiveHero(nextHero());
-                } while (this.activeQuest
-                        .getActiveHero().getHealthPoints() <= 0);
-                this.heroActionPoints--;
+                } while (!this.activeQuest.getActiveHero().isAlive());
+
                 returnPhase(IGameConstants.HERO_PHASE);
                 break;
         }

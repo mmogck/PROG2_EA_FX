@@ -27,7 +27,7 @@ import view.ESprites;
 import view.viewmodels.FXGameboard;
 
 /**
- * FXML Controller class
+ * FXML Controller class for the ingame scene.
  *
  * @author Markus Mogck
  */

@@ -44,7 +44,8 @@ public abstract class Figure
 
     public void attack(Figure target)
     {
-        FightController.attackTarget(this, target);
+        //1 muss mit Waffenreichweite ersetzt werden.
+        FightController.attackTarget(this, target, 1);
     }
 
     @Override

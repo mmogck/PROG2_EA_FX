@@ -52,6 +52,7 @@ public interface IOutputStrings
                         = "Diese Quest ist noch nicht freigeschaltet.";
     public final String ERROR_POS_NOT_REACHABLE
                         = "Held kann die Position nicht erreichen.";
+    public final String ERROR_ATTACK_FAILED = "Angriff fehlgeschlagen.";
 
     //Nachrichten, wenn Ausnahmen aufgetreten sind
     public final String MESSAGE_INVALIDQUESTNUMBEREXCEPTION

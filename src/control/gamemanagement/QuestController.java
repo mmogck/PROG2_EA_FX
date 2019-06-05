@@ -14,7 +14,7 @@ import resources.gameconstants.IFileConstants;
 import resources.gameconstants.IGameConstants;
 
 /**
- * Holds the active Quest.
+ * Holds the gameloop of the active quest.
  *
  * @author Markus Mogck
  */
@@ -23,19 +23,29 @@ public class QuestController
 
     private static GameLoop activeGameLoop = null;
 
+    /**
+     * Starts specific quest by its number.
+     *
+     * @param questNumber Number of the quest to be started.
+     */
     public static void startQuest(int questNumber)
     {
         Quest quest = new Quest(questNumber, initializeHeroes());
 
         activeGameLoop = new GameLoop(quest);
-        
+
         activeGameLoop.firstExecutePhase();
     }
 
+    /**
+     * Initializes 4 heroes with their stats and equipment.
+     *
+     * @return Array with the heroes
+     */
     public static Hero[] initializeHeroes()
     {
-        //Werte vom Held anpassen !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
+        //Werte vom Held anpassen !!!!!!!!!!!!!
+
         Hero[] heroesToSort = new Hero[4];
         heroesToSort[0] = new Hero(100, 5, 5, 3, new Position(11, 11), new Equipment());
         heroesToSort[1] = new Hero(100, 5, 5, 4, new Position(11, 13), new Equipment());
@@ -57,6 +67,12 @@ public class QuestController
         return heroesToSort;
     }
 
+    /**
+     * Method for ending the Quest. Saves progress if quest ended
+     * successfully.
+     *
+     * @param successfully
+     */
     public static void endQuest(boolean successfully)
     {
         if (successfully)
@@ -70,8 +86,15 @@ public class QuestController
         activeGameLoop = null;
     }
 
+    /**
+     * Returns a random Map for a specific quest (by number).
+     *
+     * @param questNumber
+     * @return Filepath as String
+     */
     public static String getFilePathToQuestMap(int questNumber)
     {
+        //getRandomDiceInteger von 1 bis 3 (da 3 Maps pro Quest verfuegbar)
         switch (questNumber)
         {
             case IGameConstants.QUEST_1_INT:
@@ -133,6 +156,12 @@ public class QuestController
         return null;
     }
 
+    /**
+     * Returns a map with quest as key and the status as value.
+     * If the status is true, the quest is completed.
+     * @param savegame
+     * @return 
+     */
     public static Map<Integer, Boolean> getUnlockedQuests(Savegame savegame)
     {
         HashMap<Integer, Boolean> unlockedQuestsMap = new HashMap<>();
@@ -143,6 +172,13 @@ public class QuestController
         return unlockedQuestsMap;
     }
 
+    /**
+     * Method for checking if a quest is unlocked. For a quest to be unlocked
+     * the previous quest must be completed.
+     * @param number
+     * @param savegame
+     * @return 
+     */
     public static boolean isQuestUnlocked(int number, Savegame savegame)
     {
         {

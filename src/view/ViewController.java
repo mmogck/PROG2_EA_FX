@@ -25,8 +25,10 @@ public class ViewController extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        setLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_INGAME).toURI().toURL())));
-        
+        setLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_INGAME)
+                                  .toURI()
+                                  .toURL())));
+
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

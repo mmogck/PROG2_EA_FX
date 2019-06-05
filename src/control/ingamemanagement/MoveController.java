@@ -8,6 +8,8 @@ import model.figure.Hero;
 import model.ingamemanagement.Quest;
 import model.map.GameBoard;
 import model.misc.Position;
+import resources.gameconstants.IOutputStrings;
+import view.IOColor;
 
 /**
  * Class for calculating movement radius and moving figures.
@@ -22,28 +24,43 @@ public class MoveController
     {
         showMovementRadius(quest, hero);
         IOController.printGameBoard(quest);
-        moveFigure(hero, getNewHeroPosition(quest.getGameBoard()));
-        MapController.resetMarks(quest.getGameBoard());
+//        moveFigure(hero, getNewHeroPosition(quest.getGameBoard()));
+//        MapController.resetMarks(quest.getGameBoard());
     }
-    
-    public static void finishHeroMovement(Quest quest)
+
+    public static void startHeroMovement(Hero hero,
+                                         Quest quest,
+                                         Position position)
+    {
+        if (isNewPositionOk(quest.getGameBoard(), position))
+        {
+            moveFigure(hero, position);
+            resetHeroMovement(quest);
+        }  else
+        {
+            IOController.printMessage(IOutputStrings.ERROR_POS_NOT_REACHABLE,
+                                      IOColor.FONT_RED);
+        }
+
+    }
+
+    public static void resetHeroMovement(Quest quest)
     {
         MapController.resetMarks(quest.getGameBoard());
         IOController.printGameBoard(quest);
     }
 
-    private static Position getNewHeroPosition(GameBoard gameBoard)
-    {
-        int i = 0;
-        Position newPosition = null;
-        do
-        {
-            newPosition = IOController.getNewPositionInput();
-            i++;
-        } while (i < 3 && !isNewPositionOk(gameBoard, newPosition));
-        return newPosition;
-    }
-
+//    private static Position getNewHeroPosition(GameBoard gameBoard)
+//    {
+//        int i = 0;
+//        Position newPosition = null;
+//        do
+//        {
+//            newPosition = IOController.getNewPositionInput();
+//            i++;
+//        } while (i < 3 && !isNewPositionOk(gameBoard, newPosition));
+//        return newPosition;
+//    }
     private static boolean isNewPositionOk(GameBoard gameBoard,
                                            Position position)
     {
@@ -71,7 +88,10 @@ public class MoveController
         Position tilePosition = Position.getTileFromPosition(position);
         Position squarePosition = Position.getSquareFromPosition(position);
 
-        if (!isSquareArlreadyChecked(gameBoard, movementPoints, tilePosition, squarePosition))
+        if (!isSquareArlreadyChecked(gameBoard,
+                                     movementPoints,
+                                     tilePosition,
+                                     squarePosition))
         {
             if (isSquareNotBlocked(quest, position))
             {

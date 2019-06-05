@@ -28,7 +28,8 @@ public class QuestController
         Quest quest = new Quest(questNumber, initializeHeroes());
 
         activeGameLoop = new GameLoop(quest);
-        activeGameLoop.start(); //Ausklammern
+        
+        activeGameLoop.firstExecutePhase();
     }
 
     public static Hero[] initializeHeroes()

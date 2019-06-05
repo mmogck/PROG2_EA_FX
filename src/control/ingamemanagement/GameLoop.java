@@ -29,51 +29,21 @@ public class GameLoop extends Thread
         this.activePhase = IGameConstants.HERO_PHASE;
         this.heroActionPoints = IGamebalanceConstants.HERO_ACTION_POINTS;
         this.foundNewTile = false;
-        
-        //executePhase(); mit button
     }
 
-    @Override
-    public void run()
+    public void firstExecutePhase()
     {
-        gameloop();
+        IOController.printHeroInfo(this.activeQuest.getActiveHero());
+        IOController.printActivePhase(this.activePhase, this.heroActionPoints);
+        executePhase();
     }
-
-    private void gameloop()
-    {
-        do
-        {
-            IOController.printHeroInfo(this.getActiveQuest().getActiveHero());
-
-            switch (getNextPhase())
-            {
-                case IGameConstants.HERO_PHASE:
-                    startHeroPhase();
-                    break;
-                case IGameConstants.EXPLORATION_PHASE:
-                    startExplorationPhase();
-                    break;
-                case IGameConstants.EVENT_PHASE:
-                    startEventPhase();
-                    break;
-                case IGameConstants.ENEMY_PHASE:
-                    startEnemyPhase();
-                    break;
-
-                default:
-                    break;
-            }
-
-            showGameBoard();
-
-        } while (!this.activeQuest.isQuestObjectiveAchieved());
-
-    }
-
+    
     private void executePhase()
     {
         if (!this.activeQuest.isQuestObjectiveAchieved())
         {
+            MapController.resetMarks(this.getActiveQuest().getGameBoard());
+            showGameBoard();
             IOController.printHeroInfo(this.getActiveQuest().getActiveHero());
 
             switch (this.activePhase)
@@ -106,7 +76,7 @@ public class GameLoop extends Thread
 
     private void startHeroPhase()
     {
-        this.activeQuest.getActiveHero().move(this.activeQuest);
+        IOController.initializeHeroMovement();
     }
 
     private void startExplorationPhase()
@@ -151,7 +121,7 @@ public class GameLoop extends Thread
         executePhase();
     }
 
-    private String getNextPhase()
+    private void getNextPhase()
     {
         switch (activePhase)
         {
@@ -160,17 +130,20 @@ public class GameLoop extends Thread
                 if (heroActionPoints > 0)
                 {
                     this.heroActionPoints--;
-                    return returnPhase(IGameConstants.HERO_PHASE);
+                    returnPhase(IGameConstants.HERO_PHASE);
                 } else
                 {
                     this.heroActionPoints
                     = IGamebalanceConstants.HERO_ACTION_POINTS;
-                    return returnPhase(IGameConstants.EXPLORATION_PHASE);
+                    returnPhase(IGameConstants.EXPLORATION_PHASE);
                 }
+                break;
             case IGameConstants.EXPLORATION_PHASE:
-                return returnPhase(IGameConstants.EVENT_PHASE);
+                returnPhase(IGameConstants.EVENT_PHASE);
+                break;
             case IGameConstants.EVENT_PHASE:
-                return returnPhase(IGameConstants.ENEMY_PHASE);
+                returnPhase(IGameConstants.ENEMY_PHASE);
+                break;
             case IGameConstants.ENEMY_PHASE:
                 //nächsten lebenden Helden waehlen
                 do
@@ -179,17 +152,16 @@ public class GameLoop extends Thread
                 } while (this.activeQuest
                         .getActiveHero().getHealthPoints() <= 0);
                 this.heroActionPoints--;
-                return returnPhase(IGameConstants.HERO_PHASE);
+                returnPhase(IGameConstants.HERO_PHASE);
+                break;
         }
-        return null;
     }
 
-    private String returnPhase(String phase)
+    private void returnPhase(String phase)
     {
         //Action-Points + 1, da der aktuelle schon abgezogen wurde
         IOController.printActivePhase(phase, this.heroActionPoints + 1);
         this.activePhase = phase;
-        return phase;
     }
 
     private Hero nextHero()

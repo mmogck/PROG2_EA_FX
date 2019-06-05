@@ -3,9 +3,11 @@ package control;
 import control.gamemanagement.QuestController;
 import control.ingamemanagement.MoveController;
 import javafx.application.Platform;
+import javafx.scene.paint.Color;
 import model.figure.Hero;
 import model.ingamemanagement.Quest;
 import model.misc.Position;
+import resources.gameconstants.IGameConstants;
 import view.IOColor;
 import view.ViewController;
 import view.fxmlcontroller.FXML_IngameSceneController;
@@ -17,6 +19,11 @@ import view.fxmlcontroller.FXML_IngameSceneController;
  */
 public class IOController
 {
+
+    public static FXML_IngameSceneController getIngameSceneController()
+    {
+        return ViewController.getLoader().getController();
+    }
 
 //    public static void printMessage(String text)
 //    {
@@ -32,24 +39,25 @@ public class IOController
 //    }
     public static void printMessage(String text)
     {
-        printMessage(text, IOColor.FONT_BLACK);
+        printMessage(text, Color.BLACK);
     }
 
     public static void printMessage(String text, IOColor color)
     {
-        FXML_IngameSceneController controller
-                                   = ViewController.getLoader().getController();
-        controller.printInfoText(text);
+        getIngameSceneController().printInfoText(text, color.getColor());
+    }
+
+    public static void printMessage(String text, Color color)
+    {
+        getIngameSceneController().printInfoText(text, color);
     }
 
     public static void printGameBoard(Quest quest)
     {
-        FXML_IngameSceneController controller
-                                   = ViewController.getLoader().getController();
         Platform.runLater(
                 () ->
                 {
-                    controller.printGameBoard(quest);
+                    getIngameSceneController().printGameBoard(quest);
                 }
         );
     }
@@ -73,9 +81,7 @@ public class IOController
 //    }
     public static void printActivePhase(String activePhase, int actionPoints)
     {
-        FXML_IngameSceneController controller
-                                   = ViewController.getLoader().getController();
-        controller.printPhaseInfo(activePhase, actionPoints);
+        getIngameSceneController().printPhaseInfo(activePhase, actionPoints);
     }
 
 //    public static void printHeroInfo(Hero activeHero)
@@ -85,9 +91,7 @@ public class IOController
 //    }
     public static void printHeroInfo(Hero activeHero)
     {
-        FXML_IngameSceneController controller
-                                   = ViewController.getLoader().getController();
-        controller.printHeroInfo(activeHero);
+        getIngameSceneController().printHeroInfo(activeHero);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -102,19 +106,80 @@ public class IOController
         GET_INFO;
     }
 
-    public static Position getPositionInput(Position position)
+    public static void getPositionInput(Position position)
     {
-        return position;
+        processPositionInput(position);
     }
 
     public static void processPositionInput(Position position)
     {
-        
+        switch (getClickOnGameBoardStatus())
+        {
+            case NEW_POSITION:
+                MoveController.startHeroMovement(
+                        QuestController
+                        .getActiveGameLoop()
+                        .getActiveQuest()
+                        .getActiveHero(),
+                        QuestController
+                        .getActiveGameLoop()
+                        .getActiveQuest(),
+                        position);
+                break;
+
+            case NEW_ATTACK:
+
+                break;
+
+            case NEW_ACTION:
+
+                break;
+
+            case GET_INFO:
+
+                break;
+
+            default:
+                break;
+        }
     }
 
-    private ClickOnGameBoardStatus getClickOnGameBoardStatus()
+    private static ClickOnGameBoardStatus getClickOnGameBoardStatus()
     {
-        return null;
+        switch (QuestController.getActiveGameLoop().getActivePhase())
+        {
+            case IGameConstants.HERO_PHASE:
+                if (getIngameSceneController().isActionMove())
+                {
+                    return ClickOnGameBoardStatus.NEW_POSITION;
+                } else
+                {
+                    return ClickOnGameBoardStatus.NEW_ATTACK;
+                }
+            default:
+                return ClickOnGameBoardStatus.GET_INFO;
+        }
+    }
+
+    public static void initializeHeroMovement()
+    {
+        if (getClickOnGameBoardStatus() == ClickOnGameBoardStatus.NEW_POSITION)
+        {
+            MoveController
+                    .initializeHeroMovement(QuestController
+                            .getActiveGameLoop()
+                            .getActiveQuest()
+                            .getActiveHero(),
+                                            QuestController
+                                            .getActiveGameLoop()
+                                            .getActiveQuest());
+        }
+    }
+
+    public static void resetHeroMovement()
+    {
+        MoveController.resetHeroMovement(
+                QuestController.getActiveGameLoop().getActiveQuest());
     }
 
     public static void nextPhase()
@@ -123,7 +188,6 @@ public class IOController
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    
     public static void selectSavegame()
     {
 

@@ -1,7 +1,10 @@
 package view.viewmodels;
 
+import control.IOController;
 import java.util.HashSet;
 import java.util.Set;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.figure.Enemy;
 import model.figure.Hero;
@@ -32,21 +35,30 @@ public class FXSquare extends StackPane
         this.position = position;
 
         initialize();
+        
+        this.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                IOController.getPositionInput(position);
+            }
+        });
     }
 
     private void initialize()
     {
         //vlt mit oservable list auf bestimmte Elemente zugreifen
-        this.rock = new FXImageView(ESprites.ROCK.getImage(), this.position);
-        this.field = new FXImageView(ESprites.FIELD.getImage(), this.position);
-        this.water = new FXImageView(ESprites.WATER.getImage(), this.position);
-        this.tree = new FXImageView(ESprites.TREE.getImage(), this.position);
+        this.rock = new FXImageView(ESprites.ROCK.getImage());
+        this.field = new FXImageView(ESprites.FIELD.getImage());
+        this.water = new FXImageView(ESprites.WATER.getImage());
+        this.tree = new FXImageView(ESprites.TREE.getImage());
 
-        this.hero = new FXImageView(ESprites.HERO.getImage(), this.position);
-        this.enemy = new FXImageView(ESprites.ENEMY.getImage(), this.position);
+        this.hero = new FXImageView(ESprites.HERO.getImage());
+        this.enemy = new FXImageView(ESprites.ENEMY.getImage());
 
-        this.marked = new FXImageView(ESprites.MARKED.getImage(), this.position);
-        this.empty = new FXImageView(ESprites.EMPTY.getImage(), this.position);
+        this.marked = new FXImageView(ESprites.MARKED.getImage());
+        this.empty = new FXImageView(ESprites.EMPTY.getImage());
 
         this.getChildren().addAll(rock,
                                   field,

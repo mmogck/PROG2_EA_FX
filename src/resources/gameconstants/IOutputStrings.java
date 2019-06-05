@@ -37,6 +37,10 @@ public interface IOutputStrings
                         = "Bitte X-Position vom Helden wählen:";
     public final String MESSAGE_SELECT_HERO_Y_POS
                         = "Bitte Y-Position vom Helden wählen:";
+    
+    //Text fuer Buttons
+    public final String BUTTON_ACTION_ATTACK = "Angreifen";
+    public final String BUTTON_ACTION_MOVE = "Bewegen";
 
     //Nachrichten, wenn Fehler aufgetreten sind
     public final String ERROR_UNEXPECTED_ERROR
@@ -68,4 +72,8 @@ public interface IOutputStrings
     public final String COMMAND_STARTHEROPHASE = "~startHeroPhase";
     public final String COMMAND_MOVEPLAYER = "~movePlayer";
     public final String COMMAND_ = "";
+    
+    //Placeholder
+    public final String PLACEHOLDER_FILLED = "---";
+    public final String PLACEHOLDER_EMPTY = "";
 }

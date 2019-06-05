@@ -15,7 +15,7 @@ public class FightController
 
     public static void attackTarget(Figure user, Figure target, int range)
     {
-        if (checkIfTargetIsInRange(user, target,range)
+        if (checkIfTargetIsInRange(user, target, range)
             && checkIfUserHitsTarget(user, target))
         {
             target.setHealthPoints(target.getHealthPoints()

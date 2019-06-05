@@ -12,15 +12,16 @@ import resources.gameconstants.IGuiConstants;
  */
 public class FXGameboard extends GridPane
 {
+
     private FXTile[][] fxtiles;
 
     public FXGameboard()
     {
         fxtiles = new FXTile[IGameConstants.GAMEBOARD_TILES_WIDTH][IGameConstants.GAMEBOARD_TILES_HEIGHT];
-        
+
         this.setVgap(IGuiConstants.GAMEBOARD_TILES_GAP);
         this.setHgap(IGuiConstants.GAMEBOARD_TILES_GAP);
-        
+
         initializeFXTiles();
     }
 
@@ -31,25 +32,38 @@ public class FXGameboard extends GridPane
             for (int x = 0; x < fxtiles[0].length; x++)
             {
                 fxtiles[x][y] = new FXTile(new Position(x, y));
-                
+
                 GridPane.setConstraints(fxtiles[x][y], x, y);
-                
+
                 this.getChildren().add(fxtiles[x][y]);
             }
         }
     }
-    
+
     public void printTiles(Quest quest)
     {
         for (int y = 0; y < fxtiles.length; y++)
         {
             for (int x = 0; x < fxtiles[0].length; x++)
             {
-                fxtiles[x][y].printSquares(quest);
+                if (isTileVisible(quest, new Position(x, y)))
+                {
+                    fxtiles[x][y].printSquares(quest);
+                } else
+                {
+                    fxtiles[x][y].printTileAsNotVisible();
+                }
             }
         }
     }
-    
+
+    private boolean isTileVisible(Quest quest, Position tilePosition)
+    {
+        return quest
+                .getGameBoard()
+                .getTileAtTilePosition(tilePosition).isVisible();
+    }
+
     public FXTile[][] getFxtiles()
     {
         return fxtiles;

@@ -60,6 +60,17 @@ public class FXTile extends GridPane
             }
         }
     }
+    
+    public void printTileAsNotVisible()
+    {
+        for (int y = 0; y < fxsquares.length; y++)
+        {
+            for (int x = 0; x < fxsquares[0].length; x++)
+            {
+                fxsquares[x][y].printAsNotVisible();
+            }
+        }
+    }
 
     public boolean isTileVisible()
     {

@@ -28,6 +28,7 @@ public class QuestController
         Quest quest = new Quest(questNumber, initializeHeroes());
 
         activeGameLoop = new GameLoop(quest);
+        activeGameLoop.start(); //Ausklammern
     }
 
     public static Hero[] initializeHeroes()

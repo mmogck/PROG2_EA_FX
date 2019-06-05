@@ -13,7 +13,7 @@ import resources.gameconstants.IGamebalanceConstants;
  *
  * @author Markus Mogck
  */
-public class GameLoop extends Thread
+public class GameLoopNew extends Thread
 {
 
     private final Quest activeQuest;
@@ -22,7 +22,7 @@ public class GameLoop extends Thread
     private boolean foundNewTile;
     private int heroActionPoints;
 
-    public GameLoop(Quest quest)
+    public GameLoopNew(Quest quest)
     {
         this.activeQuest = quest;
 

@@ -47,4 +47,5 @@ public interface IFileConstants
     public final String FILE_PATH_SPRITE_HERO = "src/resources/sprites/Hero.png";
     public final String FILE_PATH_SPRITE_ENEMY = "src/resources/sprites/Enemy.png";
     public final String FILE_PATH_SPRITE_MARKED = "src/resources/sprites/Marked.png";
+    public final String FILE_PATH_SPRITE_EMPTY = "src/resources/sprites/Empty.png";
 }

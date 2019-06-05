@@ -25,6 +25,7 @@ public class FXSquare extends StackPane
     private FXImageView hero;
     private FXImageView enemy;
     private FXImageView marked;
+    private FXImageView empty;
 
     public FXSquare(Position position)
     {
@@ -45,8 +46,16 @@ public class FXSquare extends StackPane
         this.enemy = new FXImageView(ESprites.ENEMY.getImage(), this.position);
 
         this.marked = new FXImageView(ESprites.MARKED.getImage(), this.position);
+        this.empty = new FXImageView(ESprites.EMPTY.getImage(), this.position);
 
-        this.getChildren().addAll(rock, field, water, tree, hero, enemy, marked);
+        this.getChildren().addAll(rock,
+                                  field,
+                                  water,
+                                  tree,
+                                  hero,
+                                  enemy,
+                                  marked,
+                                  empty);
     }
 
     public void print(Quest quest)
@@ -55,6 +64,11 @@ public class FXSquare extends StackPane
         printEnemy(quest);
         printHero(quest);
         printMarked(quest);
+    }
+    
+    public void printAsNotVisible()
+    {
+        this.empty.toFront();
     }
 
     private void printTerrain(Quest quest)
@@ -145,6 +159,7 @@ public class FXSquare extends StackPane
         hashSet.add(hero);
 
         hashSet.add(marked);
+        hashSet.add(empty);
 
         return hashSet;
     }

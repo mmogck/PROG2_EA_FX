@@ -11,6 +11,7 @@ import model.misc.Position;
  */
 public class Enemy extends Figure
 {
+
     private boolean active;
     private Hero focusedHero;
 
@@ -29,17 +30,17 @@ public class Enemy extends Figure
     {
         EnemyController.moveEnemyToFocusedHero(this, quest);
     }
-    
+
     @Override
     public String toString()
     {
         return "Figure: Enemy" + "; "
-                + "Position: " + super.getPosition() + "; "
-                + "Health Points: " + super.getHealthPoints() + "; "
-                + "Attack Power: " + super.getAttackPower() + "; "
-                + "Armor Class: " + super.getArmorClass() + "; "
-                + "Active: " + this.active + "; "
-                + "Focused Hero: " + this.focusedHero;
+               + "Position: " + super.getPosition() + "; "
+               + "Health Points: " + super.getHealthPoints() + "; "
+               + "Attack Power: " + super.getAttackPower() + "; "
+               + "Armor Class: " + super.getArmorClass() + "; "
+               + "Active: " + this.active + "; "
+               + "Focused Hero: " + this.focusedHero;
     }
 
     public boolean isActive()

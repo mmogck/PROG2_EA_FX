@@ -20,7 +20,8 @@ public enum ESprites
     TREE(IFileConstants.FILE_PATH_SPRITE_TREE),
     HERO(IFileConstants.FILE_PATH_SPRITE_HERO),
     ENEMY(IFileConstants.FILE_PATH_SPRITE_ENEMY),
-    MARKED(IFileConstants.FILE_PATH_SPRITE_MARKED);
+    MARKED(IFileConstants.FILE_PATH_SPRITE_MARKED),
+    EMPTY(IFileConstants.FILE_PATH_SPRITE_EMPTY);
 
     private final String filepath;
 

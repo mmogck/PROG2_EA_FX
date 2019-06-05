@@ -25,6 +25,12 @@ public class MoveController
         moveFigure(hero, getNewHeroPosition(quest.getGameBoard()));
         MapController.resetMarks(quest.getGameBoard());
     }
+    
+    public static void finishHeroMovement(Quest quest)
+    {
+        MapController.resetMarks(quest.getGameBoard());
+        IOController.printGameBoard(quest);
+    }
 
     private static Position getNewHeroPosition(GameBoard gameBoard)
     {

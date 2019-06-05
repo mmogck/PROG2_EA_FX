@@ -18,11 +18,11 @@ public abstract class Figure
     private int attackPower;
     private int armorClass;
     private int movementPoints;
-    
+
     private Position position;
-    
+
     private Equipment equipment;
-    
+
     private Image sprite;
 
     public Figure(int healthPoints,

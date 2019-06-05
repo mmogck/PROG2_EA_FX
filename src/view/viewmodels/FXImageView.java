@@ -23,7 +23,7 @@ public class FXImageView extends ImageView
         
         this.setFitWidth(24);
         this.setFitHeight(24);
-        
+       
         this.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override

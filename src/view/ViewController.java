@@ -24,87 +24,55 @@ public class ViewController extends Application
     private static FXMLLoader loaderQuestSelection = null;
     private static FXMLLoader loaderIngame = null;
 
+    /**
+     * Initializes all loaders for the Scenes and start the GUI Thread.
+     *
+     * @param args Application Parameters
+     */
     public static void initializeGUI(String[] args)
     {
         initializeAllLoaders();
         launch(args);
     }
 
+    /**
+     * Sets up all FXMLLoaders.
+     */
     private static void initializeAllLoaders()
     {
-        initializeHomeScreenLoader();
-        initializeIngameLoader();
-        initializeOptionsLoader();
-        initializeQuestSelectionLoader();
+        loaderHomeScreen = initializeLoader(
+                IFileConstants.FILE_PATH_FXML_HOMESCREEN);
+        loaderOptions = initializeLoader(
+                IFileConstants.FILE_PATH_FXML_OPTIONS);
+        loaderQuestSelection = initializeLoader(
+                IFileConstants.FILE_PATH_FXML_QUESTSELECTION);
+        loaderIngame = initializeLoader(
+                IFileConstants.FILE_PATH_FXML_INGAME);
     }
 
-    private static void initializeHomeScreenLoader()
+    /**
+     * Initializes an FXMLLoader.
+     *
+     * @param filepathToFxmlFile filepath to fxml file.
+     * @return new FXMLLoader
+     */
+    private static FXMLLoader initializeLoader(String filepathToFxmlFile)
     {
         try
         {
-            setHomeScreeLoader(
-                    new FXMLLoader((new File(
-                                    IFileConstants.FILE_PATH_FXML_HOMESCREEN)
-                                    .toURI()
-                                    .toURL())));
+            return new FXMLLoader((new File(filepathToFxmlFile)
+                                   .toURI()
+                                   .toURL()));
         } catch (MalformedURLException ex)
         {
             Logger.getLogger(ViewController.class.getName())
                     .log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private static void initializeOptionsLoader()
-    {
-        try
-        {
-            setOptionsLoader(
-                    new FXMLLoader((new File(
-                                    IFileConstants.FILE_PATH_FXML_OPTIONS)
-                                    .toURI()
-                                    .toURL())));
-        } catch (MalformedURLException ex)
-        {
-            Logger.getLogger(ViewController.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private static void initializeQuestSelectionLoader()
-    {
-        try
-        {
-            setQuestSelectionLoader(
-                    new FXMLLoader((new File(
-                                    IFileConstants.FILE_PATH_FXML_QUESTSELECTION)
-                                    .toURI()
-                                    .toURL())));
-        } catch (MalformedURLException ex)
-        {
-            Logger.getLogger(ViewController.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private static void initializeIngameLoader()
-    {
-        try
-        {
-            setIngameLoader(
-                    new FXMLLoader((new File(
-                                    IFileConstants.FILE_PATH_FXML_INGAME)
-                                    .toURI()
-                                    .toURL())));
-        } catch (MalformedURLException ex)
-        {
-            Logger.getLogger(ViewController.class.getName())
-                    .log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
     /**
-     * Starts the GUI and also distrinutes the different stages that are needed
-     * by the other 'screens' to change from one to the other.
+     * Starts the GUI.
      *
      * @param stage
      * @throws Exception

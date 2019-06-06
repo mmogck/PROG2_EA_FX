@@ -13,7 +13,7 @@ import resources.gameconstants.IFileConstants;
  *
  * @author Markus Mogck
  */
-public class ViewController extends Application
+public class ViewControllerIngame extends Application
 {
     private static FXMLLoader loader = null;
 
@@ -44,6 +44,6 @@ public class ViewController extends Application
 
     public static void setLoader(FXMLLoader loader)
     {
-        ViewController.loader = loader;
+        ViewControllerIngame.loader = loader;
     }
 }

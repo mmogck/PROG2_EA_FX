@@ -1,15 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.backpack;
 
 import model.items.LootDrop;
 import resources.gameconstants.CommonConstants;
 
 /**
- *
+ * The Backpack with will be used to safe the dropped Materials the Heros 
+ * collect.
+ * 
+ * The conzept of the backpack is to safe stacks of the same material in one 
+ * Backpack Slot. So in an Array of LootDrops that is the backpack we will safe
+ * an Array of the spezific LootDrop (for example Leather), the size of those 
+ * Stacks depends on the rarity of the Material.
+ * 
+ * This will be finished at a later date.
+ * 
  * @author Jonas Ulrich
  */
 public class Backpack

@@ -25,7 +25,7 @@ import view.fxmlcontroller.FXML_QuestSelectionController;
  *
  * @author jonas
  */
-public class ViewControllerJonas extends Application {
+public class ViewControllerHomeScreen extends Application {
     
  
         
@@ -90,22 +90,22 @@ public class ViewControllerJonas extends Application {
 
     public static void setHomeScreeLoader(FXMLLoader loader)
     {
-        ViewControllerJonas.loaderHomeScreen = loader;
+        ViewControllerHomeScreen.loaderHomeScreen = loader;
     }
     
     public static void setOptionsLoader(FXMLLoader loader)
     {
-        ViewControllerJonas.loaderOptions = loader;
+        ViewControllerHomeScreen.loaderOptions = loader;
     }
     
     public static void setQuestSelectionLoader(FXMLLoader loader)
     {
-        ViewControllerJonas.loaderQuestSelection = loader;
+        ViewControllerHomeScreen.loaderQuestSelection = loader;
     }
     
     public static void setIngameLoader(FXMLLoader loader)
     {
-        ViewControllerJonas.loaderIngame = loader;
+        ViewControllerHomeScreen.loaderIngame = loader;
     }
   
 }

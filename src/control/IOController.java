@@ -10,7 +10,7 @@ import model.ingamemanagement.Quest;
 import model.misc.Position;
 import resources.gameconstants.IGameConstants;
 import view.IOColor;
-import view.ViewController;
+import view.ViewControllerIngame;
 import view.fxmlcontroller.FXML_IngameSceneController;
 
 /**
@@ -23,7 +23,7 @@ public class IOController
 
     public static FXML_IngameSceneController getIngameSceneController()
     {
-        return ViewController.getLoader().getController();
+        return ViewControllerIngame.getLoader().getController();
     }
 
 //    public static void printMessage(String text)

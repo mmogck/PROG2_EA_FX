@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.fxmlcontroller;
 
 import control.IOController;
@@ -16,7 +11,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *
+ * The Controller for the HomeScreen.
+ * 
  * @author jonas
  */
 public class FXML_HomeScreenController implements Initializable {
@@ -28,7 +24,10 @@ public class FXML_HomeScreenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         
     }
-
+   /**
+    * Closes the open Window.
+    * @param event 
+    */
    @FXML
    private void closeTheWindow(ActionEvent event)
    {
@@ -44,16 +43,27 @@ public class FXML_HomeScreenController implements Initializable {
    {
        this.questSelectionScene = questSelectionScene;
    }
-   
+   /**
+    * Switches from the HomeScreen to the Options.
+    * @param event 
+    */
    @FXML
-   public void openOptionsScene(ActionEvent event) {
-        Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+   public void openOptionsScene(ActionEvent event) 
+   {
+        Stage primaryStage; 
+        primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(optionsScene);
     }
-    @FXML
-    public void openQuestSelctionScene(ActionEvent event)
-    {
-        Stage primaryStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+   
+   /**
+    * Switches from the HomeScreen to the QuestSelection. 
+    * @param event 
+    */
+   @FXML
+   public void openQuestSelctionScene(ActionEvent event)
+   {
+        Stage primaryStage;
+        primaryStage= (Stage) ((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(questSelectionScene);
     }
     

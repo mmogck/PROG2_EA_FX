@@ -1,7 +1,7 @@
 package control;
 
-import view.ViewController;
-import view.ViewControllerJonas;
+import view.ViewControllerIngame;
+import view.ViewControllerHomeScreen;
 
 /**
  * Main Class of the game. Initializes the GUI.
@@ -18,6 +18,6 @@ public class Main
      */
     public static void main(String[] args)
     {
-        ViewController.initializeGUI(args);
+        ViewControllerHomeScreen.initializeGUI(args);
     }
 }

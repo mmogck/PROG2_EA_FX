@@ -5,6 +5,7 @@ import control.ingamemanagement.MoveController;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import model.figure.Hero;
+import model.gamemanagement.EClickOnGameboardStatus;
 import model.ingamemanagement.Quest;
 import model.misc.Position;
 import resources.gameconstants.IGameConstants;
@@ -94,24 +95,39 @@ public class IOController
         getIngameSceneController().printHeroInfo(activeHero);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    private enum ClickOnGameBoardStatus
+    public static void setupGuiForPhase(String activePhase)
     {
-
-        NEW_POSITION,
-        NEW_ATTACK,
-        NEW_ACTION,
-        GET_INFO;
+        if (activePhase.equals(IGameConstants.HERO_PHASE))
+        {
+            getIngameSceneController().setHeroControls(false, true);
+            
+            switch (getIngameSceneController().getEClickOnGameBoardStatus())
+            {
+                case NEW_POSITION:
+                    initializeHeroMovement();
+                    break;
+                case NEW_ATTACK:
+                    break;
+                case NEW_ACTION:
+                    break;
+            }
+        } else {
+            getIngameSceneController().setHeroControls(true, false);
+        }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
     public static void getPositionInput(Position position)
     {
-        processPositionInput(position);
+        processPositionInput(position,
+                             getIngameSceneController()
+                             .getEClickOnGameBoardStatus());
     }
 
-    public static void processPositionInput(Position position)
+    public static void processPositionInput(Position position,
+                                            EClickOnGameboardStatus status)
     {
-        switch (getClickOnGameBoardStatus())
+        switch (status)
         {
             case NEW_POSITION:
                 MoveController.startHeroMovement(
@@ -145,36 +161,16 @@ public class IOController
         }
     }
 
-    private static ClickOnGameBoardStatus getClickOnGameBoardStatus()
-    {
-        switch (QuestController.getActiveGameLoop().getActivePhase())
-        {
-            case IGameConstants.HERO_PHASE:
-                if (getIngameSceneController().isActionMove())
-                {
-                    return ClickOnGameBoardStatus.NEW_POSITION;
-                } else
-                {
-                    return ClickOnGameBoardStatus.NEW_ATTACK;
-                }
-            default:
-                return ClickOnGameBoardStatus.GET_INFO;
-        }
-    }
-
     public static void initializeHeroMovement()
     {
-        if (getClickOnGameBoardStatus() == ClickOnGameBoardStatus.NEW_POSITION)
-        {
-            MoveController
-                    .initializeHeroMovement(QuestController
-                            .getActiveGameLoop()
-                            .getActiveQuest()
-                            .getActiveHero(),
-                                            QuestController
-                                            .getActiveGameLoop()
-                                            .getActiveQuest());
-        }
+        MoveController
+                .initializeHeroMovement(QuestController
+                        .getActiveGameLoop()
+                        .getActiveQuest()
+                        .getActiveHero(),
+                                        QuestController
+                                        .getActiveGameLoop()
+                                        .getActiveQuest());
     }
 
     public static void resetHeroMovement()
@@ -228,6 +224,4 @@ public class IOController
     {
         return IOConsoleController.getNewPositionInput();
     }
-
-    //.....
 }

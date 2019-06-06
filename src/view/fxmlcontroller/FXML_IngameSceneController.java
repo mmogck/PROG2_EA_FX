@@ -4,6 +4,7 @@ import control.IOController;
 import control.gamemanagement.QuestController;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,18 +12,22 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import model.figure.Enemy;
 import model.figure.Figure;
 import model.figure.Hero;
+import model.gamemanagement.EClickOnGameboardStatus;
 import model.ingamemanagement.Quest;
 import model.map.Square;
 import model.misc.Position;
@@ -70,8 +75,14 @@ public class FXML_IngameSceneController implements Initializable
     private TextField textfield_actionpoints;
     @FXML
     private Button button_nextphase;
+
+    private ToggleGroup togglegroup_action;
     @FXML
     private ToggleButton togglebutton_action;
+    @FXML
+    private ToggleButton togglebutton_move;
+    @FXML
+    private ToggleButton togglebutton_attack;
 
     @FXML
     private ImageView imageview_info;
@@ -95,6 +106,7 @@ public class FXML_IngameSceneController implements Initializable
     {
         initializeGameBoard();
         initializeGUI();
+        initializeToggleGroup();
     }
 
     private void initializeGameBoard()
@@ -106,22 +118,32 @@ public class FXML_IngameSceneController implements Initializable
 
     private void initializeGUI()
     {
-        anchorpane_hero.setBackground(
-                new Background(
-                        new BackgroundFill(Color.LIGHTBLUE,
-                                           CornerRadii.EMPTY,
-                                           Insets.EMPTY)));
+        setColoredBackground(anchorpane_hero, Color.LIGHTBLUE);
+        setColoredBackground(anchorpane_controls, Color.LIGHTGREY);
+        setColoredBackground(anchorpane_info, Color.LIGHTGREEN);
+    }
 
-        anchorpane_controls.setBackground(
-                new Background(
-                        new BackgroundFill(Color.LIGHTGREY,
-                                           CornerRadii.EMPTY,
-                                           Insets.EMPTY)));
-        anchorpane_info.setBackground(
-                new Background(
-                        new BackgroundFill(Color.LIGHTGREEN,
-                                           CornerRadii.EMPTY,
-                                           Insets.EMPTY)));
+    private void setColoredBackground(Pane pane, Color color)
+    {
+        pane.setBackground(new Background(
+                new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+    private void initializeToggleGroup()
+    {
+        togglegroup_action = new ToggleGroup();
+
+        togglebutton_move.setToggleGroup(togglegroup_action);
+        togglebutton_attack.setToggleGroup(togglegroup_action);
+        togglebutton_action.setToggleGroup(togglegroup_action);
+
+        togglegroup_action.selectedToggleProperty().addListener(
+                (ObservableValue<? extends Toggle> ov,
+                 Toggle toggle, Toggle new_toggle) ->
+                {
+                    IOController.resetHeroMovement();
+                    //IOController.resetHeroAttack();
+                });
     }
 
     ////////////////////////////////////////////////////////////////////////
@@ -150,7 +172,7 @@ public class FXML_IngameSceneController implements Initializable
     public void printHeroInfo(Hero activeHero)
     {
         imageview_hero.setImage(ESprites.HERO.getImage());
-        textfield_hero.setText("");
+        textfield_hero.setText(IOutputStrings.PLACEHOLDER_EMPTY);
         textfield_hp.setText(Integer.toString(activeHero.getHealthPoints()));
         textfield_mp.setText(Integer.toString(activeHero.getMovementPoints()));
     }
@@ -258,6 +280,21 @@ public class FXML_IngameSceneController implements Initializable
     }
 
     ////////////////////////////////////////////////////////////////////////
+    public void setHeroControls(boolean reset, boolean group)
+    {
+        if (reset)
+        {
+            togglebutton_move.setSelected(false);
+            togglebutton_attack.setSelected(false);
+            togglebutton_action.setSelected(false);
+        }
+
+        togglebutton_move.setDisable(!group);
+        togglebutton_attack.setDisable(!group);
+        togglebutton_action.setDisable(!group);
+    }
+
+    ////////////////////////////////////////////////////////////////////////
     @FXML
     private void handleMenuFileCloseAction(ActionEvent event)
     {
@@ -267,6 +304,7 @@ public class FXML_IngameSceneController implements Initializable
     @FXML
     private void handleMenuFileNewQuestAction(ActionEvent event)
     {
+        //Mit IOController ersetzen
         QuestController.startQuest(1);
     }
 
@@ -288,18 +326,49 @@ public class FXML_IngameSceneController implements Initializable
     {
         if (togglebutton_action.isSelected())
         {
-            IOController.resetHeroMovement();
-            togglebutton_action.setText(IOutputStrings.BUTTON_ACTION_ATTACK);
-        } else
+
+        }
+    }
+
+    @FXML
+    private void handleToggleButtonMoveAction(ActionEvent event)
+    {
+        if (togglebutton_move.isSelected())
         {
             IOController.initializeHeroMovement();
-            togglebutton_action.setText(IOutputStrings.BUTTON_ACTION_MOVE);
+        }
+    }
+
+    @FXML
+    private void handleToggleButtonAttackAction(ActionEvent event)
+    {
+        if (togglebutton_attack.isSelected())
+        {
+            //IOController.initializeHeroAttack();
         }
     }
 
     ////////////////////////////////////////////////////////////////////////
-    public boolean isActionMove()
+    public EClickOnGameboardStatus getEClickOnGameBoardStatus()
     {
-        return !togglebutton_action.isSelected();
+        if (togglegroup_action.getSelectedToggle() == null)
+        {
+            return EClickOnGameboardStatus.GET_INFO;
+        } else if (togglegroup_action.getSelectedToggle()
+                .equals(togglebutton_action))
+        {
+            return EClickOnGameboardStatus.NEW_ACTION;
+        } else if (togglegroup_action.getSelectedToggle()
+                .equals(togglebutton_move))
+        {
+            return EClickOnGameboardStatus.NEW_POSITION;
+        } else if (togglegroup_action.getSelectedToggle()
+                .equals(togglebutton_attack))
+        {
+            return EClickOnGameboardStatus.NEW_ATTACK;
+        } else
+        {
+            return EClickOnGameboardStatus.GET_INFO;
+        }
     }
 }

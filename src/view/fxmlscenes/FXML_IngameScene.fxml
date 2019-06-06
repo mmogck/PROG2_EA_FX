@@ -144,7 +144,9 @@
                                           <Button fx:id="button_nextphase" mnemonicParsing="false" onAction="#handleButtonNextPhaseAction" text="Nächste Phase" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                                        </children>
                                     </GridPane>
-                                    <ToggleButton fx:id="togglebutton_action" mnemonicParsing="false" onAction="#handleToggleButtonAction" text="Bewegen" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <ToggleButton fx:id="togglebutton_attack" mnemonicParsing="false" onAction="#handleToggleButtonAttackAction" text="Angreifen" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <ToggleButton fx:id="togglebutton_move" mnemonicParsing="false" onAction="#handleToggleButtonMoveAction" text="Bewegen" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                    <ToggleButton fx:id="togglebutton_action" mnemonicParsing="false" onAction="#handleToggleButtonAction" text="---" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                                  </children>
                               </GridPane>
                            </children></AnchorPane>

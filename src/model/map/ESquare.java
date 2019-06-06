@@ -9,7 +9,7 @@ import view.ESprites;
  * Contains the different scenery objects with their sprites and impediment
  * values.
  *
- * @author TSB8TG
+ * @author Markus Mogck
  */
 public enum ESquare
 {

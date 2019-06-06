@@ -121,8 +121,8 @@ public class MoveController
                                     int movementPoints)
     {
         GameBoard gameBoard = quest.getGameBoard();
-        Position tilePosition = Position.getTileFromPosition(position);
-        Position squarePosition = Position.getSquareFromPosition(position);
+        Position tilePosition = Position.getTilePositionFromPosition(position);
+        Position squarePosition = Position.getSquarePositionFromPosition(position);
 
         if (!isSquareArlreadyChecked(gameBoard, movementPoints,
                                      tilePosition, squarePosition))

@@ -88,6 +88,8 @@ public class GameLoop extends Thread
     {
         MapController.resetMarks(this.getActiveQuest().getGameBoard());
 
+        IOController.setupGuiForPhase(activePhase);
+
         IOController.printGameBoard(this.activeQuest);
 
         IOController.printHeroInfo(this.getActiveQuest().getActiveHero());
@@ -99,7 +101,7 @@ public class GameLoop extends Thread
      */
     private void startHeroPhase()
     {
-        IOController.initializeHeroMovement();
+
     }
 
     /**

@@ -136,7 +136,7 @@ public class EnemyController
 
         for (Enemy enemy : quest.getEnemies())
         {
-            if (Position.getTileFromPosition(enemy.getPosition())
+            if (Position.getTilePositionFromPosition(enemy.getPosition())
                     .equals(tilePosition))
             {
                 enemiesAtTile.add(enemy);

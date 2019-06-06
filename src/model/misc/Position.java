@@ -8,33 +8,62 @@ import resources.gameconstants.IGameConstants;
  *
  * @author Markus Mogck
  */
-public class Position implements Comparable<Position>
+public class Position
 {
 
     private int x;
     private int y;
 
+    /**
+     * Constructor of position with its x and y value.
+     *
+     * @param x
+     * @param y
+     */
     public Position(int x, int y)
     {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Constructor of position with an given position.
+     *
+     * @param position
+     */
     public Position(Position position)
     {
         this(position.getX(), position.getY());
     }
 
+    /**
+     * Converts position to tile position.
+     *
+     * @return
+     */
     public Position toTilePosition()
     {
-        return getTileFromPosition(this);
+        return Position.getTilePositionFromPosition(this);
     }
 
+    /**
+     * Converts position to square position.
+     *
+     * @return
+     */
     public Position toSquarePosition()
     {
-        return getSquareFromPosition(this);
+        return getSquarePositionFromPosition(this);
     }
 
+    /**
+     * Returns square and tile independent position form tile and square
+     * position.
+     *
+     * @param tilePosition
+     * @param squarePosition
+     * @return
+     */
     public static Position getPositionFromTileAndSquarePosition(Position tilePosition,
                                                                 Position squarePosition)
     {
@@ -44,6 +73,16 @@ public class Position implements Comparable<Position>
                                                     squarePosition.getY());
     }
 
+    /**
+     * Returns square and tile independent position form tile and square
+     * position.
+     *
+     * @param tile_x x value of tile position
+     * @param tile_y y value of tile position
+     * @param square_x x value of square position
+     * @param square_y y value of square position
+     * @return
+     */
     public static Position getPositionFromTileAndSquarePosition(int tile_x,
                                                                 int tile_y,
                                                                 int square_x,
@@ -53,25 +92,51 @@ public class Position implements Comparable<Position>
                             (tile_y * 5) + square_y);
     }
 
-    public static Position getTileFromPosition(Position position)
+    /**
+     * Converts a position to its tile position.
+     *
+     * @param position
+     * @return
+     */
+    public static Position getTilePositionFromPosition(Position position)
     {
-        return getTileFromPosition(position.getX(), position.getY());
+        return getTilePositionFromPosition(position.getX(), position.getY());
     }
 
-    public static Position getTileFromPosition(int x, int y)
+    /**
+     * Converts a position to its tile position.
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    public static Position getTilePositionFromPosition(int x, int y)
     {
         return new Position((int) x / IGameConstants.GAMEBOARD_TILES_WIDTH,
                             (int) y / IGameConstants.GAMEBOARD_TILES_HEIGHT);
     }
 
-    public static Position getSquareFromPosition(Position position)
+    /**
+     * Converts a position to its square position.
+     *
+     * @param position
+     * @return
+     */
+    public static Position getSquarePositionFromPosition(Position position)
     {
-        return getSquareFromPosition(position.getX(), position.getY());
+        return Position.getSquarePositionFromPosition(position.getX(), position.getY());
     }
 
-    public static Position getSquareFromPosition(int x, int y)
+    /**
+     * Converts a position to its square position.
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    public static Position getSquarePositionFromPosition(int x, int y)
     {
-        Position tilePosition = getTileFromPosition(x, y);
+        Position tilePosition = getTilePositionFromPosition(x, y);
 
         return new Position(x - (tilePosition.getX()
                                  * IGameConstants.GAMEBOARD_SQUARES_WIDTH),
@@ -79,6 +144,11 @@ public class Position implements Comparable<Position>
                                  * IGameConstants.GAMEBOARD_SQUARES_HEIGHT));
     }
 
+    /**
+     * Returns a String with x and y value of the position.
+     *
+     * @return
+     */
     @Override
     public String toString()
     {
@@ -115,21 +185,6 @@ public class Position implements Comparable<Position>
             return false;
         }
         return true;
-    }
-
-    @Override
-    public int compareTo(Position o)
-    {
-        if ((x == o.getX()) && (y == o.getY()))
-        {
-            return 0;
-        } else if ((x < o.getX()) || (y < o.getY()))
-        {
-            return -1;
-        } else
-        {
-            return 1;
-        }
     }
 
     public int getX()

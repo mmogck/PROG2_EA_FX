@@ -71,7 +71,7 @@ public class FXGameboard extends GridPane
 
     public FXTile getFXTileAtPosition(Position position)
     {
-        return getFXTileAtTilePosition(Position.getTileFromPosition(position));
+        return getFXTileAtTilePosition(Position.getTilePositionFromPosition(position));
     }
 
     public FXTile getFXTileAtTilePosition(Position tilePosition)

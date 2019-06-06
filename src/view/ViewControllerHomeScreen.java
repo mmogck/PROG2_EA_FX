@@ -22,7 +22,7 @@ import view.fxmlcontroller.FXML_OptionsController;
 import view.fxmlcontroller.FXML_QuestSelectionController;
 
 /**
- *
+ * Starts the GUI from the HomeScreen.
  * @author jonas
  */
 public class ViewControllerHomeScreen extends Application {
@@ -38,7 +38,12 @@ public class ViewControllerHomeScreen extends Application {
     {
         launch(args);
     }
-
+    /**
+     * Starts the GUI and also distrinutes the different stages that are needed
+     * by the other 'screens' to change from one to the other.
+     * @param stage
+     * @throws Exception 
+     */
     @Override
     public void start(Stage stage) throws Exception
     {

@@ -25,6 +25,7 @@ public class IOController
     {
         return ViewController.getLoaderIngame().getController();
     }
+
     public static void printMessage(String text)
     {
         printMessage(text, Color.BLACK);
@@ -49,6 +50,7 @@ public class IOController
                 }
         );
     }
+
     public static void printActivePhase(String activePhase, int actionPoints)
     {
         getIngameSceneController().printPhaseInfo(activePhase, actionPoints);
@@ -64,7 +66,7 @@ public class IOController
         if (activePhase.equals(IGameConstants.HERO_PHASE))
         {
             getIngameSceneController().setHeroControls(false, true);
-            
+
             switch (getIngameSceneController().getEClickOnGameBoardStatus())
             {
                 case NEW_POSITION:
@@ -75,7 +77,8 @@ public class IOController
                 case NEW_ACTION:
                     break;
             }
-        } else {
+        } else
+        {
             getIngameSceneController().setHeroControls(true, false);
         }
     }

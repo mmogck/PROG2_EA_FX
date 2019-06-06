@@ -31,7 +31,7 @@ public class EnemyController
 
     /**
      * Returns the new position of the enemy to be moved. Therefor the Positions
-     * on the right, left, bottom and topof the focused hero are checked for
+     * on the right, left, bottom and top of the focused hero are checked for
      * obstacles and the first possible position gets returned.
      *
      * @param focusedHero

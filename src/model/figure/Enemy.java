@@ -5,9 +5,14 @@ import model.ingamemanagement.Quest;
 import model.misc.Position;
 
 /**
- * The Enemy Class contains informations about enemy figures.
+ * The Enemy Class contains informations about enemy figures. 
  *
+ * The different kinds of Enemys are safed in an Enum because they all have the 
+ * same basic attributes.
  * @author Jonas Ulrich
+ * 
+ * @param active
+ * @param focusedHero
  */
 public class Enemy extends Figure
 {
@@ -15,6 +20,14 @@ public class Enemy extends Figure
     private boolean active;
     private Hero focusedHero;
 
+    /**
+     * Constructor of the Enemy Class
+     * 
+     *
+     * @param enemyType
+     * @param position 
+     */
+    
     public Enemy(EnemyEnum enemyType, Position position)
     {
         super(enemyType.getHealthPoints(),

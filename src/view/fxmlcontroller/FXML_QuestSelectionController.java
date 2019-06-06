@@ -5,6 +5,8 @@
  */
 package view.fxmlcontroller;
 
+import control.IOController;
+import control.gamemanagement.QuestController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -31,12 +33,25 @@ public class FXML_QuestSelectionController implements Initializable {
     {
         this.ingameScene = scene;
     }
-    
+    /**
+     * Switches from the QuestSelection to an actual Quest.
+     * @param event 
+     */
     @FXML
     public void openIngameScene(ActionEvent event) {
         Stage primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         primaryStage.setScene(ingameScene);
           
     }
+    
+    /**
+    * Closes the open Window.
+    * @param event 
+    */
+   @FXML
+   private void closeTheWindow(ActionEvent event)
+   {
+       IOController.closeGame();
+   }
     
 }

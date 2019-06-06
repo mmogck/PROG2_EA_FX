@@ -1,16 +1,15 @@
 package view;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import resources.gameconstants.IFileConstants;
-import view.fxmlcontroller.FXML_HomeScreenController;
-import view.fxmlcontroller.FXML_OptionsController;
-import view.fxmlcontroller.FXML_QuestSelectionController;
 
 /**
  * Starts the GUI from the HomeScreen.
@@ -27,7 +26,80 @@ public class ViewController extends Application
 
     public static void initializeGUI(String[] args)
     {
+        initializeAllLoaders();
         launch(args);
+    }
+
+    private static void initializeAllLoaders()
+    {
+        initializeHomeScreenLoader();
+        initializeIngameLoader();
+        initializeOptionsLoader();
+        initializeQuestSelectionLoader();
+    }
+
+    private static void initializeHomeScreenLoader()
+    {
+        try
+        {
+            setHomeScreeLoader(
+                    new FXMLLoader((new File(
+                                    IFileConstants.FILE_PATH_FXML_HOMESCREEN)
+                                    .toURI()
+                                    .toURL())));
+        } catch (MalformedURLException ex)
+        {
+            Logger.getLogger(ViewController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void initializeOptionsLoader()
+    {
+        try
+        {
+            setOptionsLoader(
+                    new FXMLLoader((new File(
+                                    IFileConstants.FILE_PATH_FXML_OPTIONS)
+                                    .toURI()
+                                    .toURL())));
+        } catch (MalformedURLException ex)
+        {
+            Logger.getLogger(ViewController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void initializeQuestSelectionLoader()
+    {
+        try
+        {
+            setQuestSelectionLoader(
+                    new FXMLLoader((new File(
+                                    IFileConstants.FILE_PATH_FXML_QUESTSELECTION)
+                                    .toURI()
+                                    .toURL())));
+        } catch (MalformedURLException ex)
+        {
+            Logger.getLogger(ViewController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void initializeIngameLoader()
+    {
+        try
+        {
+            setIngameLoader(
+                    new FXMLLoader((new File(
+                                    IFileConstants.FILE_PATH_FXML_INGAME)
+                                    .toURI()
+                                    .toURL())));
+        } catch (MalformedURLException ex)
+        {
+            Logger.getLogger(ViewController.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -40,45 +112,7 @@ public class ViewController extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        setHomeScreeLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_HOMESCREEN)
-                                           .toURI()
-                                           .toURL())));
-
-        Parent rootHomeScreen = loaderHomeScreen.load();
-        Scene sceneHomeScreen = new Scene(rootHomeScreen);
-
-        setOptionsLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_OPTIONS)
-                                         .toURI()
-                                         .toURL())));
-
-        Parent rootOptions = loaderOptions.load();
-        Scene sceneOptions = new Scene(rootOptions);
-
-        setQuestSelectionLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_QUESTSELECTION)
-                                                .toURI()
-                                                .toURL())));
-
-        Parent rootQuestSelection = loaderQuestSelection.load();
-        Scene sceneQuestSelection = new Scene(rootQuestSelection);
-
-        setIngameLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_INGAME)
-                                        .toURI()
-                                        .toURL())));
-
-        Parent rootIngame = loaderIngame.load();
-        Scene sceneIngame = new Scene(rootIngame);
-
-        FXML_HomeScreenController HomeScreenController = (FXML_HomeScreenController) loaderHomeScreen.getController();
-        HomeScreenController.setOptionsScene(sceneOptions);
-        HomeScreenController.setQuestSelctionScene(sceneQuestSelection);
-
-        FXML_OptionsController OptionsController = (FXML_OptionsController) loaderOptions.getController();
-        OptionsController.setHomeScreenScene(sceneHomeScreen);
-
-        FXML_QuestSelectionController questSelectionController = (FXML_QuestSelectionController) loaderQuestSelection.getController();
-        questSelectionController.setIngameScene(sceneIngame);
-
-        stage.setScene(sceneHomeScreen);
+        stage.setScene(new Scene(loaderHomeScreen.load()));
         stage.show();
     }
 

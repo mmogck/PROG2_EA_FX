@@ -1,6 +1,7 @@
 package control;
 
 import view.ViewController;
+import view.ViewControllerJonas;
 
 /**
  * Main Class of the game. Initializes the GUI.

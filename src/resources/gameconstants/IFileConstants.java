@@ -38,6 +38,9 @@ public interface IFileConstants
     
     //Dateien fuer die Scenes
     public final String FILE_PATH_FXML_INGAME = "src/view/fxmlscenes/FXML_IngameScene.fxml";
+    public final String FILE_PATH_FXML_HOMESCREEN = "src/view/fxmlscenes/FXML_HomeScreen.fxml";
+    public final String FILE_PATH_FXML_OPTIONS = "src/view/fxmlscenes/FXML_Options.fxml";
+    public final String FILE_PATH_FXML_QUESTSELECTION = "src/view/fxmlscenes/FXML_QuestSelection.fxml";
     
     //Dateien fuer die Sprites
     public final String FILE_PATH_SPRITE_FIELD = "src/resources/sprites/Field.png";

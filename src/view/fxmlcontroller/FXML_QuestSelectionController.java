@@ -5,7 +5,6 @@
  */
 package view.fxmlcontroller;
 
-import control.gamemanagement.QuestController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -14,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import resources.gameconstants.CommonConstants;
 
 /**
  *

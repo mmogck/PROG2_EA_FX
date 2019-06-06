@@ -23,21 +23,8 @@ public class IOController
 
     public static FXML_IngameSceneController getIngameSceneController()
     {
-        return ViewController.getLoader().getController();
+        return ViewController.getLoaderIngame().getController();
     }
-
-//    public static void printMessage(String text)
-//    {
-//        printMessage(text, IOColor.FONT_BLACK);
-//    }
-//    public static void printMessage(String text, IOColor color)
-//    {
-//        IOConsoleController.printlnColor(color, text);
-//    }
-//    public static void printGameBoard(Quest quest)
-//    {
-//        MapController.printGameBoardToConsole(quest);
-//    }
     public static void printMessage(String text)
     {
         printMessage(text, Color.BLACK);
@@ -62,34 +49,11 @@ public class IOController
                 }
         );
     }
-
-//    public static void printActivePhase(String activePhase, int actionPoints)
-//    {
-//
-//        if (activePhase.equals(IGameConstants.HERO_PHASE))
-//        {
-//            IOConsoleController.printlnColor(IOColor.FONT_PURPLE,
-//                                             activePhase);
-//            IOConsoleController.printlnColor(IOColor.FONT_PURPLE,
-//                                             IOutputStrings.MESSAGE_ACTIONPOINTS
-//                                             + actionPoints);
-//        } else
-//        {
-//            IOConsoleController.printlnColor(IOColor.FONT_PURPLE,
-//                                             activePhase);
-//        }
-//
-//    }
     public static void printActivePhase(String activePhase, int actionPoints)
     {
         getIngameSceneController().printPhaseInfo(activePhase, actionPoints);
     }
 
-//    public static void printHeroInfo(Hero activeHero)
-//    {
-//        IOConsoleController.printlnColor(IOColor.FONT_BLUE,
-//                                         activeHero.toString());
-//    }
     public static void printHeroInfo(Hero activeHero)
     {
         getIngameSceneController().printHeroInfo(activeHero);

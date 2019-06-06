@@ -1,19 +1,22 @@
 package resources.gameconstants;
 
 /**
- * 
+ * Strings to be shown as an output in GUIor console.
+ *
  * @author Markus Mogck
  */
 public interface IOutputStrings
 {
+
     //Darstellungen für die Karte in der Konsole
+
     public final char CONSOLE_MAPOUTPUT_HERO = 'H';
     public final char CONSOLE_MAPOUTPUT_ENEMY = 'E';
     public final char CONSOLE_MAPOUTPUT_ROCK = 'R';
     public final char CONSOLE_MAPOUTPUT_FIELD = 'F';
     public final char CONSOLE_MAPOUTPUT_TREE = 'T';
     public final char CONSOLE_MAPOUTPUT_WATER = 'W';
-    
+
     //Nachrichten, wenn das Programm etwas getan hat
     public final String MESSAGE_SAVEGAME_CREATED = "Savegame wurde erstellt.";
     public final String MEESAGE_SAVEGAME_SELECTED
@@ -37,7 +40,7 @@ public interface IOutputStrings
                         = "Bitte X-Position vom Helden wählen:";
     public final String MESSAGE_SELECT_HERO_Y_POS
                         = "Bitte Y-Position vom Helden wählen:";
-    
+
     //Text fuer Buttons
     public final String BUTTON_ACTION_ATTACK = "Angreifen";
     public final String BUTTON_ACTION_MOVE = "Bewegen";
@@ -73,7 +76,7 @@ public interface IOutputStrings
     public final String COMMAND_STARTHEROPHASE = "~startHeroPhase";
     public final String COMMAND_MOVEPLAYER = "~movePlayer";
     public final String COMMAND_ = "";
-    
+
     //Placeholder
     public final String PLACEHOLDER_FILLED = "---";
     public final String PLACEHOLDER_EMPTY = "";

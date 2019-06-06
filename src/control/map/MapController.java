@@ -161,21 +161,21 @@ public class MapController
     {
         if (position.toSquarePosition().getX() == 0)
         {
-            return Position.getTileFromPosition(position.getX() - 1,
+            return Position.getTilePositionFromPosition(position.getX() - 1,
                                                 position.getY());
         } else if (position.toSquarePosition().getX()
                    == IGameConstants.GAMEBOARD_SQUARES_WIDTH - 1)
         {
-            return Position.getTileFromPosition(position.getX() + 1,
+            return Position.getTilePositionFromPosition(position.getX() + 1,
                                                 position.getY());
         } else if (position.toSquarePosition().getY() == 0)
         {
-            return Position.getTileFromPosition(position.getX(),
+            return Position.getTilePositionFromPosition(position.getX(),
                                                 position.getY() - 1);
         } else if (position.toSquarePosition().getY()
                    == IGameConstants.GAMEBOARD_SQUARES_HEIGHT - 1)
         {
-            return Position.getTileFromPosition(position.getX(),
+            return Position.getTilePositionFromPosition(position.getX(),
                                                 position.getY() + 1);
         }
 

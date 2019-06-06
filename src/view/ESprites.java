@@ -9,11 +9,13 @@ import javafx.scene.image.Image;
 import resources.gameconstants.IFileConstants;
 
 /**
+ * Enumeration with the filepathes to the sprites of particular objects.
  *
  * @author Markus Mogck
  */
 public enum ESprites
 {
+
     ROCK(IFileConstants.FILE_PATH_SPRITE_ROCK),
     FIELD(IFileConstants.FILE_PATH_SPRITE_FIELD),
     WATER(IFileConstants.FILE_PATH_SPRITE_WATER),
@@ -29,12 +31,17 @@ public enum ESprites
     {
         this.filepath = filepath;
     }
-    
+
     public String getFilePath()
     {
         return this.filepath;
     }
-    
+
+    /**
+     * Returns an image of the sprite at the filepath.
+     *
+     * @return Image
+     */
     public Image getImage()
     {
         try
@@ -48,7 +55,12 @@ public enum ESprites
             return null;
         }
     }
-    
+
+    /**
+     * Returns the file path as URL.
+     *
+     * @return
+     */
     public URL getURLasURL()
     {
         try
@@ -61,7 +73,12 @@ public enum ESprites
             return null;
         }
     }
-    
+
+    /**
+     * Returns the URL of the file path as String.
+     *
+     * @return
+     */
     public String getURLasString()
     {
         try

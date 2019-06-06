@@ -39,11 +39,17 @@ public class Quest
         this.activeHero = heroes[0];
     }
 
+    /**
+     * Method to check if quest objective is achieved.
+     *
+     * @return true is quest objective is achieved
+     */
     public boolean isQuestObjectiveAchieved()
     {
         return false;
     }
 
+    //Getter and Setter
     public int getQuestNumber()
     {
         return questNumber;

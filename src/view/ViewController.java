@@ -2,20 +2,27 @@ package view;
 
 import java.io.File;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import resources.gameconstants.IFileConstants;
+import view.fxmlcontroller.FXML_HomeScreenController;
+import view.fxmlcontroller.FXML_OptionsController;
+import view.fxmlcontroller.FXML_QuestSelectionController;
 
 /**
- * Controlls which scene is shown.
  *
- * @author Markus Mogck
+ * @author Jonas Ulrich
  */
 public class ViewController extends Application
 {
-    private static FXMLLoader loader = null;
+
+    private static FXMLLoader loaderHomeScreen = null;
+    private static FXMLLoader loaderOptions = null;
+    private static FXMLLoader loaderQuestSelection = null;
+    private static FXMLLoader loaderIngame = null;
 
     public static void initializeGUI(String[] args)
     {
@@ -25,25 +32,86 @@ public class ViewController extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        setLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_INGAME)
-                                  .toURI()
-                                  .toURL())));
+        setHomeScreeLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_HOMESCREEN)
+                                           .toURI()
+                                           .toURL())));
 
-        Parent root = loader.load();
+        Parent rootHomeScreen = loaderHomeScreen.load();
+        Scene sceneHomeScreen = new Scene(rootHomeScreen);
 
-        Scene scene = new Scene(root);
+        setOptionsLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_OPTIONS)
+                                         .toURI()
+                                         .toURL())));
 
-        stage.setScene(scene);
+        Parent rootOptions = loaderOptions.load();
+        Scene sceneOptions = new Scene(rootOptions);
+
+        setQuestSelectionLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_QUESTSELECTION)
+                                                .toURI()
+                                                .toURL())));
+
+        Parent rootQuestSelection = loaderQuestSelection.load();
+        Scene sceneQuestSelection = new Scene(rootQuestSelection);
+
+        setIngameLoader(new FXMLLoader((new File(IFileConstants.FILE_PATH_FXML_INGAME)
+                                        .toURI()
+                                        .toURL())));
+
+        Parent rootIngame = loaderIngame.load();
+        Scene sceneIngame = new Scene(rootIngame);
+
+        FXML_HomeScreenController HomeScreenController = (FXML_HomeScreenController) loaderHomeScreen.getController();
+        HomeScreenController.setOptionsScene(sceneOptions);
+        HomeScreenController.setQuestSelctionScene(sceneQuestSelection);
+
+        FXML_OptionsController OptionsController = (FXML_OptionsController) loaderOptions.getController();
+        OptionsController.setHomeScreenScene(sceneHomeScreen);
+
+        FXML_QuestSelectionController questSelectionController = (FXML_QuestSelectionController) loaderQuestSelection.getController();
+        questSelectionController.setIngameScene(sceneIngame);
+
+        stage.setScene(sceneHomeScreen);
         stage.show();
     }
 
-    public static FXMLLoader getLoader()
+    public static void setHomeScreeLoader(FXMLLoader loader)
     {
-        return loader;
+        ViewController.loaderHomeScreen = loader;
     }
 
-    public static void setLoader(FXMLLoader loader)
+    public static void setOptionsLoader(FXMLLoader loader)
     {
-        ViewController.loader = loader;
+        ViewController.loaderOptions = loader;
     }
+
+    public static void setQuestSelectionLoader(FXMLLoader loader)
+    {
+        ViewController.loaderQuestSelection = loader;
+    }
+
+    public static void setIngameLoader(FXMLLoader loader)
+    {
+        ViewController.loaderIngame = loader;
+    }
+
+    public static FXMLLoader getLoaderHomeScreen()
+    {
+        return loaderHomeScreen;
+    }
+
+    public static FXMLLoader getLoaderOptions()
+    {
+        return loaderOptions;
+    }
+
+    public static FXMLLoader getLoaderQuestSelection()
+    {
+        return loaderQuestSelection;
+    }
+
+    public static FXMLLoader getLoaderIngame()
+    {
+        return loaderIngame;
+    }
+
 }

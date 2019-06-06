@@ -4,6 +4,7 @@ import model.figure.Figure;
 
 public class PlayerHeap
 {
+
     private int heapSize;
     private Figure heapBuffer[];
     private int pos;
@@ -24,9 +25,10 @@ public class PlayerHeap
     }
 
     /**
-	* This method repairs the max heap property.
-	*@return void
-	*/
+     * This method repairs the max heap property.
+     *
+     * @return void
+     */
     private void heapify()
     {
         int currentpos = this.pos - 1;
@@ -34,8 +36,11 @@ public class PlayerHeap
         while (currentpos != 0)
         {
             int parentIndex = (currentpos - 1) / 2;
-            int parentValue = this.heapBuffer[parentIndex].getMovementPoints(); //Ausstauschen mit Inititative
-            int currentValue = this.heapBuffer[currentpos].getMovementPoints();
+            //Ausstauschen mit Inititative
+            int parentValue = this.heapBuffer[parentIndex]
+                    .getMovementPoints();
+            int currentValue = this.heapBuffer[currentpos]
+                    .getMovementPoints();
 
             if (currentValue > parentValue)
             {
@@ -50,15 +55,16 @@ public class PlayerHeap
     }
 
     /**
-	* When we delete a node, this method makes sure that the next node
-	* with the highest priority is at the top of the heap. 
-	* We do this until the heap property is fixed.
-	*@return void
-	*/
+     * When we delete a node, this method makes sure that the next node with the
+     * highest priority is at the top of the heap. We do this until the heap
+     * property is fixed.
+     *
+     * @return void
+     */
     private void fix()
     {
         int k = 0;
-		 //We loop while every node has a least two child nodes.
+        //We loop while every node has a least two child nodes.
         while (k < this.pos / 2)
         {
             int left = 2 * k + 1;

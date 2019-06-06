@@ -26,7 +26,8 @@ public class FightController
         }
     }
 
-    public static boolean checkIfTargetIsInRange(Figure user, Figure target, int range)
+    public static boolean checkIfTargetIsInRange(Figure user, Figure target,
+                                                 int range)
     {
         return getDistance(user.getPosition(), target.getPosition()) <= range;
     }

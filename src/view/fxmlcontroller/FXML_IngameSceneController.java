@@ -109,6 +109,9 @@ public class FXML_IngameSceneController implements Initializable
         initializeToggleGroup();
     }
 
+    /**
+     * Initializes the Gameboard. Adds tiles, squares and sprites.
+     */
     private void initializeGameBoard()
     {
         fxgameboard = new FXGameboard();
@@ -116,6 +119,9 @@ public class FXML_IngameSceneController implements Initializable
         anchorpane_gameboard.getChildren().add(fxgameboard);
     }
 
+    /**
+     * Initilaizes some GUI elements.
+     */
     private void initializeGUI()
     {
         setColoredBackground(anchorpane_hero, Color.LIGHTBLUE);
@@ -123,12 +129,22 @@ public class FXML_IngameSceneController implements Initializable
         setColoredBackground(anchorpane_info, Color.LIGHTGREEN);
     }
 
+    /**
+     * Sets a background color to a pane.
+     *
+     * @param pane pane to get background color
+     * @param color background color
+     */
     private void setColoredBackground(Pane pane, Color color)
     {
         pane.setBackground(new Background(
                 new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    /**
+     * Initializes the toggle group for the toggle buttons which control the
+     * actions.
+     */
     private void initializeToggleGroup()
     {
         togglegroup_action = new ToggleGroup();
@@ -147,16 +163,32 @@ public class FXML_IngameSceneController implements Initializable
     }
 
     ////////////////////////////////////////////////////////////////////////
+    /**
+     * Prints all tiles and squares according to the active quest.
+     *
+     * @param quest active quest.
+     */
     public void printGameBoard(Quest quest)
     {
         fxgameboard.printTiles(quest);
     }
 
+    /**
+     * Prints a info text to the gui.
+     *
+     * @param text text to be printet
+     */
     public void printInfoText(String text)
     {
         printInfoText(text, Color.BLACK);
     }
 
+    /**
+     * Prints a info text to the gui.
+     *
+     * @param text text to be printet
+     * @param color color (not supported yet)
+     */
     public void printInfoText(String text, Color color)
     {
         Text textToAdd = new Text(text);
@@ -169,6 +201,11 @@ public class FXML_IngameSceneController implements Initializable
         textarea_info.setScrollTop(Double.MAX_VALUE);
     }
 
+    /**
+     * Prints all infos about the active hero.
+     *
+     * @param activeHero active hero
+     */
     public void printHeroInfo(Hero activeHero)
     {
         imageview_hero.setImage(ESprites.HERO.getImage());
@@ -182,6 +219,12 @@ public class FXML_IngameSceneController implements Initializable
 
     }
 
+    /**
+     * Prints all infos about the active phase and sets the controls.
+     *
+     * @param activePhase active phase
+     * @param actionPoints actions points if phase is hero phase
+     */
     public void printPhaseInfo(String activePhase, int actionPoints)
     {
         textfield_activephase.setText(activePhase);
@@ -197,6 +240,12 @@ public class FXML_IngameSceneController implements Initializable
         }
     }
 
+    /**
+     * Prints informations about the selected field to the info section.
+     *
+     * @param position
+     * @param quest
+     */
     public void printFieldInfo(Position position, Quest quest)
     {
         for (Enemy enemy : quest.getEnemies())
@@ -221,6 +270,11 @@ public class FXML_IngameSceneController implements Initializable
                 .getSquareFromPosition(position));
     }
 
+    /**
+     * Prints informations to info section if field is a square.
+     *
+     * @param square
+     */
     private void printFieldInfoSquare(Square square)
     {
         printFieldInfoText(square.getESquare().toString(),
@@ -232,6 +286,11 @@ public class FXML_IngameSceneController implements Initializable
         activateSquareInfo();
     }
 
+    /**
+     * Prints informations to info section if field is a figure.
+     *
+     * @param figure
+     */
     private void printFieldInfoFigure(Figure figure)
     {
         printFieldInfoText(figure.getClass().getSimpleName(),
@@ -243,6 +302,15 @@ public class FXML_IngameSceneController implements Initializable
         activateFigureInfo();
     }
 
+    /**
+     * Prints text to the info section.
+     *
+     * @param field
+     * @param impediment
+     * @param hp
+     * @param mp
+     * @param damage
+     */
     private void printFieldInfoText(String field,
                                     String impediment,
                                     String hp,
@@ -256,6 +324,9 @@ public class FXML_IngameSceneController implements Initializable
         textfield_info_damage.setText(damage);
     }
 
+    /**
+     * Activates info section for square info.
+     */
     private void activateSquareInfo()
     {
         textfield_info_field.setDisable(false);
@@ -265,6 +336,9 @@ public class FXML_IngameSceneController implements Initializable
         textfield_info_damage.setDisable(true);
     }
 
+    /**
+     * Activates info section for figure info.
+     */
     private void activateFigureInfo()
     {
         textfield_info_field.setDisable(false);
@@ -274,12 +348,23 @@ public class FXML_IngameSceneController implements Initializable
         textfield_info_damage.setDisable(false);
     }
 
+    /**
+     * Prints image of the info section.
+     *
+     * @param image
+     */
     private void printFieldInfoImage(Image image)
     {
         imageview_info.setImage(image);
     }
 
     ////////////////////////////////////////////////////////////////////////
+    /**
+     * Sets up the Hero Controls
+     *
+     * @param reset should the buttons be resetted?
+     * @param group (de-)activates all toggle buttons
+     */
     public void setHeroControls(boolean reset, boolean group)
     {
         if (reset)
@@ -295,6 +380,7 @@ public class FXML_IngameSceneController implements Initializable
     }
 
     ////////////////////////////////////////////////////////////////////////
+    //Button actions
     @FXML
     private void handleMenuFileCloseAction(ActionEvent event)
     {
@@ -349,6 +435,11 @@ public class FXML_IngameSceneController implements Initializable
     }
 
     ////////////////////////////////////////////////////////////////////////
+    /**
+     * Returns the current state of the status when clicked on the gameboard.
+     *
+     * @return EClickOnGameboardStatus
+     */
     public EClickOnGameboardStatus getEClickOnGameBoardStatus()
     {
         if (togglegroup_action.getSelectedToggle() == null)

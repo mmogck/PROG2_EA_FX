@@ -18,7 +18,7 @@ public class Hero extends Figure
                 int attackPower,
                 int armorClass,
                 int movementPoints,
-                Position location,
+                Position position,
                 Equipment equipment,
                 Image sprite)
     {
@@ -26,9 +26,20 @@ public class Hero extends Figure
               attackPower,
               armorClass,
               movementPoints,
-              location,
+              position,
               equipment,
               sprite);
+    }
+
+    public Hero(HeroEnum hero)
+    {
+        super(hero.getHealthPoints(),
+              hero.getAttackPower(),
+              hero.getArmorClass(),
+              hero.getMovementPoints(),
+              hero.getPosition(),
+              hero.getEquipment(),
+              hero.getSprite());
     }
 
     @Override

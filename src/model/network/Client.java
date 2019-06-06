@@ -1,4 +1,4 @@
-package model.Network;
+package model.network;
 
 public class Client extends Thread
 {

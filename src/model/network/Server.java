@@ -1,4 +1,4 @@
-package model.Network;
+package model.network;
 
 import control.gamemanagement.ThreadController;
 import resources.gameconstants.INetworkConstants;

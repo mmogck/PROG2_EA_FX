@@ -25,7 +25,15 @@ public class ThreadController
         this.threadMap = new HashMap();
         this.currentThreadCount = 0;
     }
-
+	
+	/**
+	* This method starts a new thread in the ThreadController.
+	* First we check if it's allowed to add a new thread.
+	* 
+	* You need to specify a name as a string for the new thread.
+	* Thats means that you're also able to remove the thread by name.
+	* @return: return code 0=Failure, 1=Success
+	*/
     public int addThread(String threadName, Runnable thread)
     {
         if (this.currentThreadCount == this.maxThreads)
@@ -37,7 +45,16 @@ public class ThreadController
 
         return 1;
     }
-
+	
+	/**
+	* This method removes a running thread in the ThreadController.
+	* We iterate through the hashmap and search for the thread name.
+	* The hashmap is our data structure that maps a string to a thread.
+	* 
+	* If the thread is active, then we terminte the thread and remove it
+	* from the hashmap.
+	* @return: return code 0=Failure, 1=Success
+	*/
     public int removeThread(String threadName)
     {
         if (this.currentThreadCount == 0)

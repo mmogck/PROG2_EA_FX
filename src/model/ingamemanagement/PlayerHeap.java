@@ -23,7 +23,10 @@ public class PlayerHeap
         this.heapBuffer[j] = t;
     }
 
-    //heapify() -> MAX Heap Eigenschaft wiederherstellen
+    /**
+	* This method repairs the max heap property.
+	*@return void
+	*/
     private void heapify()
     {
         int currentpos = this.pos - 1;
@@ -46,11 +49,17 @@ public class PlayerHeap
         }
     }
 
-    //Nach dem ein Element entnommen wurde, von oben ab das Element an die Richtige Position bringen.
+    /**
+	* When we delete a node, this method makes sure that the next node
+	* with the highest priority is at the top of the heap. 
+	* We do this until the heap property is fixed.
+	*@return void
+	*/
     private void fix()
     {
         int k = 0;
-        while (k < this.pos / 2) //Solange jeder Knoten im Heap mindestens ein Kindknoten hat
+		 //We loop while every node has a least two child nodes.
+        while (k < this.pos / 2)
         {
             int left = 2 * k + 1;
             int right = 2 * k + 2;

@@ -5,7 +5,7 @@ import model.misc.Position;
 /**
  * Interface with Constants for the Game.
  *
- * @author Markus Mogck
+ * @author Markus Mogck, Jonas Ulrich, Felix Busch
  */
 public interface IGameConstants
 {

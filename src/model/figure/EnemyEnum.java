@@ -32,13 +32,13 @@ public enum EnemyEnum
         this.sprite = sprite;
     }
 
-    private int healthPoints;
-    private int attackPower;
-    private int armorClass;
+    private final int healthPoints;
+    private final int attackPower;
+    private final int armorClass;
 
-    private Equipment equipment;
+    private final Equipment equipment;
 
-    private Image sprite;
+    private final Image sprite;
 
     public String getName()
     {

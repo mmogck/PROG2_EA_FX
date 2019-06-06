@@ -7,9 +7,9 @@ import resources.gameconstants.CommonConstants;
  * The Backpack with will be used to safe the dropped Materials the Heros 
  * collect.
  * 
- * The conzept of the backpack is to safe stacks of the same material in one 
+ * The concept of the backpack is to safe stacks of the same material in one 
  * Backpack Slot. So in an Array of LootDrops that is the backpack we will safe
- * an Array of the spezific LootDrop (for example Leather), the size of those 
+ * an Array of the specific LootDrop (for example Leather), the size of those 
  * Stacks depends on the rarity of the Material.
  * 
  * This will be finished at a later date.

@@ -86,23 +86,56 @@ public class EnemyController
             reachable = false;
         }
 
-        for (Hero hero : quest.getHeroes())
-        {
-            if (reachable)
-            {
-                reachable = !position.equals(hero.getPosition());
-            }
-        }
+        reachable = checkHeroes(quest, position, reachable);
 
-        for (Enemy enemy : quest.getEnemies())
-        {
-            if (reachable && enemy != activeEnemy)
-            {
-                reachable = !position.equals(enemy.getPosition());
-            }
-        }
+        reachable = checkEnemies(quest, position, activeEnemy, reachable);
 
         return reachable;
+    }
+
+    /**
+     * Checks if new position of enemy is blocked by a hero.
+     *
+     * @param quest active quest
+     * @param position new position
+     * @param reachable current state of reachability
+     * @return
+     */
+    private static boolean checkHeroes(Quest quest, Position position,
+                                       boolean reachable)
+    {
+        boolean check = reachable;
+        for (Hero hero : quest.getHeroes())
+        {
+            if (check)
+            {
+                check = !position.equals(hero.getPosition());
+            }
+        }
+        return check;
+    }
+
+    /**
+     * Checks if new position of enemy is blocked by a hero.
+     *
+     * @param quest active quest
+     * @param position new position
+     * @param activeEnemy active enemy
+     * @param reachable current state of reachability
+     * @return
+     */
+    private static boolean checkEnemies(Quest quest, Position position,
+                                        Enemy activeEnemy, boolean reachable)
+    {
+        boolean check = reachable;
+        for (Enemy enemy : quest.getEnemies())
+        {
+            if (check && enemy != activeEnemy)
+            {
+                check = !position.equals(enemy.getPosition());
+            }
+        }
+        return check;
     }
 
     /**

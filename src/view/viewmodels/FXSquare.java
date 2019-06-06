@@ -13,6 +13,7 @@ import model.misc.Position;
 import view.ESprites;
 
 /**
+ * Adapted StackPane for the Square.
  *
  * @author Markus Mogck
  */
@@ -30,12 +31,20 @@ public class FXSquare extends StackPane
     private FXImageView marked;
     private FXImageView empty;
 
+    /**
+     * Constructor. Contains setOnMouseClick.
+     *
+     * @param position
+     */
     public FXSquare(Position position)
     {
         this.position = position;
 
         initialize();
 
+        /**
+         * MouseClickEvent to process position input.
+         */
         this.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
@@ -46,6 +55,9 @@ public class FXSquare extends StackPane
         });
     }
 
+    /**
+     * Adds all ImageViews to the Stack Pane.
+     */
     private void initialize()
     {
         //vlt mit oservable list auf bestimmte Elemente zugreifen
@@ -70,6 +82,11 @@ public class FXSquare extends StackPane
                                   empty);
     }
 
+    /**
+     * Prints the ImageViews in the right order according to the quest.
+     *
+     * @param quest active quest
+     */
     public void print(Quest quest)
     {
         printTerrain(quest);
@@ -78,11 +95,19 @@ public class FXSquare extends StackPane
         printMarked(quest);
     }
 
+    /**
+     * Prints placeholder for not found tiles / squares.
+     */
     public void printAsNotVisible()
     {
         this.empty.toFront();
     }
 
+    /**
+     * Prints the terrain / scenery layer.
+     *
+     * @param quest active quest
+     */
     private void printTerrain(Quest quest)
     {
         switch (quest.getGameBoard().getSquareFromPosition(position).getESquare())
@@ -108,6 +133,11 @@ public class FXSquare extends StackPane
         }
     }
 
+    /**
+     * Prints the enemy layer.
+     *
+     * @param quest active quest
+     */
     private void printEnemy(Quest quest)
     {
         for (Enemy enemyFromQuest : quest.getEnemies())
@@ -120,6 +150,11 @@ public class FXSquare extends StackPane
         }
     }
 
+    /**
+     * Prints the hero layer.
+     *
+     * @param quest active quest
+     */
     private void printHero(Quest quest)
     {
         for (Hero heroFromQuest : quest.getHeroes())
@@ -132,6 +167,11 @@ public class FXSquare extends StackPane
         }
     }
 
+    /**
+     * Prints the marked layer.
+     *
+     * @param quest active quest
+     */
     private void printMarked(Quest quest)
     {
         if (quest.getGameBoard().getSquareFromPosition(position).isMarked())
@@ -148,6 +188,11 @@ public class FXSquare extends StackPane
         return position;
     }
 
+    /**
+     * Returns all FXImageViews that are part of the terrain / scenery.
+     *
+     * @return Set of FXImageViews
+     */
     private Set<FXImageView> getTerrainFXImageViews()
     {
         HashSet<FXImageView> hashSet = new HashSet<>();
@@ -160,6 +205,11 @@ public class FXSquare extends StackPane
         return hashSet;
     }
 
+    /**
+     * Returns all FXImageViews of that FXSquare.
+     *
+     * @return Set of FXImageView
+     */
     public Set<FXImageView> getFXImageViews()
     {
         HashSet<FXImageView> hashSet = new HashSet<>();

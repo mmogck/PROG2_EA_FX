@@ -17,7 +17,7 @@ import view.ViewController;
 /**
  * The Controller for the HomeScreen.
  *
- * @author jonas
+ * @author Jonas Ulrich
  */
 public class FXML_HomeScreenController implements Initializable
 {
@@ -71,9 +71,11 @@ public class FXML_HomeScreenController implements Initializable
         try
         {
             Stage primaryStage
-                  = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                  = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
             primaryStage.setScene(
-                    new Scene(ViewController.getLoaderQuestSelection().load()));
+                    new Scene(ViewController
+                            .getLoaderQuestSelection().load()));
         } catch (IOException ex)
         {
             Logger.getLogger(FXML_HomeScreenController.class.getName())

@@ -17,7 +17,7 @@ public class Quest
 {
 
     private int questNumber;
-    private String filePathToMap;
+    private final String filePathToMap;
 
     private GameBoard gameBoard;
 

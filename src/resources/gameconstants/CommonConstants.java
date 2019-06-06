@@ -1,11 +1,13 @@
 package resources.gameconstants;
 
 /**
+ * Interface with commonly used constants.
  *
- * @author jonas
+ * @author Jonas Ulrich
  */
 public interface CommonConstants
 {
+
     public final int ZERO = 0;
     public final int ONE = 1;
     public final int TWO = 2;

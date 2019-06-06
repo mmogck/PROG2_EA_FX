@@ -16,7 +16,7 @@ import view.ViewController;
 
 /**
  *
- * @author jonas
+ * @author Jonas Ulrich
  */
 public class FXML_QuestSelectionController implements Initializable
 {

@@ -3,13 +3,12 @@ package resources.gameconstants;
 /**
  * Strings to be shown as an output in GUIor console.
  *
- * @author Markus Mogck
+ * @author Markus Mogck, Jonas Ulrich, Felix Busch
  */
 public interface IOutputStrings
 {
 
     //Darstellungen für die Karte in der Konsole
-
     public final char CONSOLE_MAPOUTPUT_HERO = 'H';
     public final char CONSOLE_MAPOUTPUT_ENEMY = 'E';
     public final char CONSOLE_MAPOUTPUT_ROCK = 'R';
@@ -18,7 +17,8 @@ public interface IOutputStrings
     public final char CONSOLE_MAPOUTPUT_WATER = 'W';
 
     //Nachrichten, wenn das Programm etwas getan hat
-    public final String MESSAGE_SAVEGAME_CREATED = "Savegame wurde erstellt.";
+    public final String MESSAGE_SAVEGAME_CREATED
+                        = "Savegame wurde erstellt.";
     public final String MEESAGE_SAVEGAME_SELECTED
                         = "Savegame wurde ausgewählt.";
 

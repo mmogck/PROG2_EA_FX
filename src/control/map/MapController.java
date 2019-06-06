@@ -33,54 +33,6 @@ public class MapController
 {
 
     /**
-     * Prints the gameboard to console.
-     *
-     * @param quest active quest
-     */
-    public static void printGameBoardToConsole(Quest quest)
-    {
-        String output = "";
-
-        //Höhe der Tiles (y)
-        for (int i = 0; i < IGameConstants.GAMEBOARD_TILES_HEIGHT; i++)
-        {
-            String[] lines
-                     = getEmptyStringArray(IGameConstants.GAMEBOARD_TILES_HEIGHT);
-
-            //Breite der Tiles (x)
-            for (int j = 0; j < IGameConstants.GAMEBOARD_TILES_WIDTH; j++)
-            {
-                //Höhe der Squares (y)
-                for (int k = 0; k < IGameConstants.GAMEBOARD_SQUARES_HEIGHT; k++)
-                {
-                    //Breite der Squares (x)
-                    for (int l = 0;
-                         l < IGameConstants.GAMEBOARD_SQUARES_WIDTH;
-                         l++)
-                    {
-
-                        if (quest.getGameBoard().getTileAtTilePosition(j, i).isVisible())
-                        {
-                            lines[k] += getStringForGameBoard(quest,
-                                                              j, i, l, k);
-                        } else
-                        {
-                            lines[k] += "? ";
-                        }
-                    }
-                }
-            }
-            //Ausgabe der Zeilen für die erste Tile-Reihe
-            for (String line : lines)
-            {
-                output += (line + "\n");
-            }
-        }
-
-        System.out.println(output);
-    }
-
-    /**
      * Resets the marked squares
      *
      * @param gameBoard
@@ -162,21 +114,21 @@ public class MapController
         if (position.toSquarePosition().getX() == 0)
         {
             return Position.getTilePositionFromPosition(position.getX() - 1,
-                                                position.getY());
+                                                        position.getY());
         } else if (position.toSquarePosition().getX()
                    == IGameConstants.GAMEBOARD_SQUARES_WIDTH - 1)
         {
             return Position.getTilePositionFromPosition(position.getX() + 1,
-                                                position.getY());
+                                                        position.getY());
         } else if (position.toSquarePosition().getY() == 0)
         {
             return Position.getTilePositionFromPosition(position.getX(),
-                                                position.getY() - 1);
+                                                        position.getY() - 1);
         } else if (position.toSquarePosition().getY()
                    == IGameConstants.GAMEBOARD_SQUARES_HEIGHT - 1)
         {
             return Position.getTilePositionFromPosition(position.getX(),
-                                                position.getY() + 1);
+                                                        position.getY() + 1);
         }
 
         return null;

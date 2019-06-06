@@ -51,6 +51,10 @@ public class QuestController
         heroesToSort[2] = new Hero(HeroEnum.HERO3);
         heroesToSort[3] = new Hero(HeroEnum.HERO4);
 
+        /*
+         Sortieren der Helden nach Bewegungspunkten (spaeter durch
+         Initiative) und Rueckgabe an die Quest
+         */
         PlayerHeap heap = new PlayerHeap(IGameConstants.HERO_COUNT);
 
         for (int i = 0; i < heroesToSort.length; i++)
@@ -78,7 +82,7 @@ public class QuestController
             //Erfahrung, Gegenstände, Spielstand aktualisieren
         } else
         {
-
+            //
         }
 
         activeGameLoop = null;
@@ -184,28 +188,40 @@ public class QuestController
         {
             if (number != 1)
             {
-                //Einer der Schwierigkeitsstufen wurde geschafft
-                boolean questDone = false;
-                int previousQuestNumber = number - 1;
-
-                for (Map.Entry<String, Boolean> entry : savegame
-                        .getQuestProgress()
-                        .get(previousQuestNumber)
-                        .entrySet())
-                {
-                    if (entry.getValue() == true)
-                    {
-                        questDone = true;
-                    }
-                }
-
-                return questDone;
+                return isQuestBeforeDone(number, savegame);
             } else
             {
                 //Quest 1 ist immer freigeschaltet.
                 return true;
             }
         }
+    }
+
+    /**
+     * Checks wether the previous quest is done.
+     *
+     * @param number current quest number
+     * @param savegame active savegame
+     * @return true if previous quest is done
+     */
+    private static boolean isQuestBeforeDone(int number, Savegame savegame)
+    {
+        //Einer der Schwierigkeitsstufen wurde geschafft
+        boolean questDone = false;
+
+        for (Map.Entry<String, Boolean> entry : savegame
+                .getQuestProgress()
+                //Nummer der vorherigen Quest
+                .get(number - 1)
+                .entrySet())
+        {
+            if (entry.getValue() == true)
+            {
+                questDone = true;
+            }
+        }
+
+        return questDone;
     }
 
     public static GameLoop getActiveGameLoop()

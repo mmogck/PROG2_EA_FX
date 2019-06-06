@@ -42,7 +42,8 @@ public class GameBoard implements ISizedObject
      */
     public Tile getTileAtTilePosition(Position tilePosition)
     {
-        return getTileAtTilePosition(tilePosition.getX(), tilePosition.getY());
+        return getTileAtTilePosition(tilePosition.getX(),
+                                     tilePosition.getY());
     }
 
     /**

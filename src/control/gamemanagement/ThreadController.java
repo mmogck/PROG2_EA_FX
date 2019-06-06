@@ -3,6 +3,7 @@ package control.gamemanagement;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -23,7 +24,7 @@ public class ThreadController
     public ThreadController(int maxThreads)
     {
         this.maxThreads = maxThreads;
-        this.threadMap = new HashMap<String, Runnable>();
+        this.threadMap = new HashMap<>();
         this.currentThreadCount = 0;
     }
 
@@ -34,6 +35,8 @@ public class ThreadController
      * You need to specify a name as a string for the new thread. Thats means
      * that you're also able to remove the thread by name.
      *
+     * @param threadName
+     * @param thread
      * @return: return code 0=Failure, 1=Success
      */
     public int addThread(String threadName, Runnable thread)
@@ -58,6 +61,7 @@ public class ThreadController
      * If the thread is active, then we terminte the thread and remove it from
      * the hashmap.
      *
+     * @param threadName
      * @return: return code 0=Failure, 1=Success
      */
     public int removeThread(String threadName)
@@ -67,12 +71,12 @@ public class ThreadController
             return 0;
         }
 
-        Set threadSet = threadMap.entrySet();
-        Iterator it = threadSet.iterator();
+        Set<Entry<String, Runnable>> threadSet = threadMap.entrySet();
+        Iterator<Entry<String, Runnable>> it = threadSet.iterator();
 
         while (it.hasNext())
         {
-            Map.Entry entry = (Map.Entry) it.next();
+            Map.Entry<String, Runnable> entry = it.next();
             if (entry.getKey().toString().contains(threadName))
             {
                 Thread foundThread = (Thread) entry.getValue();

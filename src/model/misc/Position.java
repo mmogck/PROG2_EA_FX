@@ -64,8 +64,9 @@ public class Position
      * @param squarePosition
      * @return
      */
-    public static Position getPositionFromTileAndSquarePosition(Position tilePosition,
-                                                                Position squarePosition)
+    public static Position
+            getPositionFromTileAndSquarePosition(Position tilePosition,
+                                                 Position squarePosition)
     {
         return getPositionFromTileAndSquarePosition(tilePosition.getX(),
                                                     tilePosition.getY(),
@@ -124,7 +125,8 @@ public class Position
      */
     public static Position getSquarePositionFromPosition(Position position)
     {
-        return Position.getSquarePositionFromPosition(position.getX(), position.getY());
+        return Position.getSquarePositionFromPosition(
+                position.getX(), position.getY());
     }
 
     /**

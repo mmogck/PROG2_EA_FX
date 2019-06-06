@@ -14,22 +14,30 @@ import resources.gameconstants.IGuiConstants;
 public class FXTile extends GridPane
 {
 
-    private Position tilePosition;
+    private final Position tilePosition;
 
     private FXSquare[][] fxsquares;
     private boolean visible;
 
+    /**
+     * Constructor. Initializes squares.
+     *
+     * @param tilePosition
+     */
     public FXTile(Position tilePosition)
     {
         this.tilePosition = tilePosition;
 
         this.setVgap(IGuiConstants.GAMEBOARD_SQUARES_GAP);
         this.setHgap(IGuiConstants.GAMEBOARD_SQUARES_GAP);
-        
+
         fxsquares = new FXSquare[IGameConstants.GAMEBOARD_SQUARES_WIDTH][IGameConstants.GAMEBOARD_SQUARES_HEIGHT];
         initializeFXSquares();
     }
 
+    /**
+     * Initializes the squares at this tile.
+     */
     private void initializeFXSquares()
     {
         for (int y = 0; y < fxsquares.length; y++)
@@ -38,10 +46,10 @@ public class FXTile extends GridPane
             {
                 fxsquares[x][y]
                 = new FXSquare(Position
-                        .getPositionFromTileAndSquarePosition(tilePosition.getX(),
-                                                              tilePosition.getY(),
-                                                              x,
-                                                              y));
+                                .getPositionFromTileAndSquarePosition(tilePosition.getX(),
+                                                                      tilePosition.getY(),
+                                                                      x,
+                                                                      y));
 
                 GridPane.setConstraints(fxsquares[x][y], x, y);
 
@@ -49,7 +57,12 @@ public class FXTile extends GridPane
             }
         }
     }
-    
+
+    /**
+     * Prints the squares according to quest info.
+     *
+     * @param quest
+     */
     public void printSquares(Quest quest)
     {
         for (int y = 0; y < fxsquares.length; y++)
@@ -60,7 +73,10 @@ public class FXTile extends GridPane
             }
         }
     }
-    
+
+    /**
+     * Prints the tile as not visible.
+     */
     public void printTileAsNotVisible()
     {
         for (int y = 0; y < fxsquares.length; y++)
@@ -87,11 +103,24 @@ public class FXTile extends GridPane
         return fxsquares;
     }
 
+    /**
+     * Returns a particular FXSquare at position.
+     *
+     * @param position position
+     * @return
+     */
     public FXSquare getFXSquareAtPosition(Position position)
     {
         return fxsquares[position.getX()][position.getY()];
     }
 
+    /**
+     * Returns FXSquare at tile and square position.
+     *
+     * @param tilePosition
+     * @param squarePosition
+     * @return
+     */
     public FXSquare getFXSquareAtTileAndSquarePosition(Position tilePosition,
                                                        Position squarePosition)
     {

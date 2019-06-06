@@ -4,15 +4,13 @@ import control.ingamemanagement.GameLoop;
 import java.util.HashMap;
 import java.util.Map;
 import model.figure.Hero;
+import model.figure.HeroEnum;
 import model.gamemanagement.Savegame;
 import model.ingamemanagement.PlayerHeap;
 import model.ingamemanagement.Quest;
-import model.items.Equipment;
 import model.misc.Dice;
-import model.misc.Position;
 import resources.gameconstants.IFileConstants;
 import resources.gameconstants.IGameConstants;
-import view.ESprites;
 
 /**
  * Holds the gameloop of the active quest.
@@ -39,25 +37,21 @@ public class QuestController
     }
 
     /**
-     * Initializes 4 heroes with their stats and equipment.
+     * Initializes the heroes with their stats and equipment.
      *
      * @return Array with the heroes
      */
     public static Hero[] initializeHeroes()
     {
-        //Werte vom Held anpassen !!!!!!!!!!!!!
+        //Anpassungsmoeglichkeit durch Spieler hinzufuegen
 
-        Hero[] heroesToSort = new Hero[4];
-        heroesToSort[0] = new Hero(100, 5, 5, 3, new Position(11, 11),
-                                   new Equipment(), ESprites.HERO.getImage());
-        heroesToSort[1] = new Hero(100, 5, 5, 4, new Position(11, 13),
-                                   new Equipment(), ESprites.HERO.getImage());
-        heroesToSort[2] = new Hero(100, 5, 5, 5, new Position(13, 11),
-                                   new Equipment(), ESprites.HERO.getImage());
-        heroesToSort[3] = new Hero(100, 5, 5, 6, new Position(13, 13),
-                                   new Equipment(), ESprites.HERO.getImage());
+        Hero[] heroesToSort = new Hero[IGameConstants.HERO_COUNT];
+        heroesToSort[0] = new Hero(HeroEnum.HERO1);
+        heroesToSort[1] = new Hero(HeroEnum.HERO2);
+        heroesToSort[2] = new Hero(HeroEnum.HERO3);
+        heroesToSort[3] = new Hero(HeroEnum.HERO4);
 
-        PlayerHeap heap = new PlayerHeap(4);
+        PlayerHeap heap = new PlayerHeap(IGameConstants.HERO_COUNT);
 
         for (int i = 0; i < heroesToSort.length; i++)
         {

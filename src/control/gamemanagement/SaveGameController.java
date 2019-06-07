@@ -235,7 +235,7 @@ public class SaveGameController
                     return IFileConstants.FILE_PATH_SAVEGAME_3;
                 default:
                     throw new InvalidSavegameNumberException(
-                            IOutputStrings.MESSAGE_INVALIDSAVEGAMENUMBEREXCEPTION);
+                            IOutputStrings.EXCEPTION_INVALIDSAVEGAMENUMBER);
             }
         } catch (Exception ex)
         {

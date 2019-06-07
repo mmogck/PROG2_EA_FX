@@ -7,5 +7,8 @@ package exception;
  */
 public class InvalidSquareCharacterException extends Exception
 {
-
+    public InvalidSquareCharacterException(String message)
+    {
+        super(message);
+    }
 }

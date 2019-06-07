@@ -98,7 +98,7 @@ public class QuestController
     {
         if (successfully)
         {
-            System.out.println("aaa");
+            //
         } else
         {
             //

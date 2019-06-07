@@ -58,10 +58,13 @@ public interface IOutputStrings
     public final String ERROR_ATTACK_FAILED = "Angriff fehlgeschlagen.";
 
     //Nachrichten, wenn Ausnahmen aufgetreten sind
-    public final String MESSAGE_INVALIDQUESTNUMBEREXCEPTION
+    public final String EXCEPTION_INVALIDQUESTNUMBER
                         = "Quest-Nummer nicht erlaubt.";
-    public final String MESSAGE_INVALIDSAVEGAMENUMBEREXCEPTION
+    public final String EXCEPTION_INVALIDSAVEGAMENUMBER
                         = "Spielstandnummer nicht erlaubt.";
+    public final String EXCEPTION_INVALIDSQUARECHARACTER
+                        = "Kartenfeld kann nicht eingelesen werdern"
+                          + "(Character nicht erkannt)";
 
     //Befehle
     public final String COMMAND_EXIT = "~exit";

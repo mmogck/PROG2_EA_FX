@@ -9,8 +9,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.figure.Enemy;
 import model.figure.EEnemy;
+import model.figure.Enemy;
 import model.figure.Hero;
 import model.ingamemanagement.Quest;
 import model.map.ESquare;
@@ -333,7 +333,8 @@ public class MapController
                 return new Square(ESquare.WATER);
 
             default:
-                throw new InvalidSquareCharacterException();
+                throw new InvalidSquareCharacterException(
+                        IOutputStrings.EXCEPTION_INVALIDSQUARECHARACTER);
         }
     }
 

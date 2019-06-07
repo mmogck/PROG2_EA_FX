@@ -11,7 +11,7 @@ import view.ESprites;
  *
  * @autor Markus Mogck
  */
-public enum HeroEnum
+public enum EHero
 {
 
     HERO1(150, 10, 10, 4,
@@ -46,7 +46,7 @@ public enum HeroEnum
 
     private final Image sprite;
 
-    private HeroEnum(int healthPoints,
+    private EHero(int healthPoints,
                      int attackPower,
                      int armorClass,
                      int movementPoints,

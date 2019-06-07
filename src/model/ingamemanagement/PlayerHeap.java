@@ -3,10 +3,10 @@ package model.ingamemanagement;
 import model.figure.Figure;
 
 /**
-* PlayerHeap class
-*
-* @author felix
-*/
+ * PlayerHeap class
+ *
+ * @author felix
+ */
 public class PlayerHeap
 {
 

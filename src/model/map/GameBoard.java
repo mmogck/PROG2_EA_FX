@@ -1,5 +1,6 @@
 package model.map;
 
+import java.util.ArrayList;
 import model.misc.Position;
 
 /**
@@ -31,7 +32,22 @@ public class GameBoard implements ISizedObject
      */
     public Tile[][] getTiles()
     {
-        return tiles;
+        return this.tiles;
+    }
+    
+    public ArrayList<Tile> getTilesList()
+    {
+        ArrayList<Tile> tileList = new ArrayList<>();
+        
+        for (Tile[] tilesarray : this.tiles)
+        {
+            for (Tile tile : tilesarray)
+            {
+                tileList.add(tile);
+            }
+        }
+        
+        return tileList;
     }
 
     /**
@@ -140,12 +156,12 @@ public class GameBoard implements ISizedObject
     @Override
     public int getWidth()
     {
-        return tiles.length;
+        return this.tiles.length;
     }
 
     @Override
     public int getHeight()
     {
-        return tiles[0].length;
+        return this.tiles[0].length;
     }
 }

@@ -3,12 +3,15 @@ package control.gamemanagement;
 import control.ingamemanagement.GameLoop;
 import java.util.HashMap;
 import java.util.Map;
+import model.figure.EHero;
+import model.figure.Enemy;
 import model.figure.Hero;
-import model.figure.HeroEnum;
 import model.gamemanagement.Savegame;
 import model.ingamemanagement.PlayerHeap;
 import model.ingamemanagement.Quest;
+import model.map.Tile;
 import model.misc.Dice;
+import model.misc.EDifficulty;
 import resources.gameconstants.IFileConstants;
 import resources.gameconstants.IGameConstants;
 
@@ -20,20 +23,26 @@ import resources.gameconstants.IGameConstants;
 public class QuestController
 {
 
-    private static GameLoop activeGameLoop = null;
+    private static Quest activeQuest = null;
+
+    private static Hero[] selectedHeroes = null;
 
     /**
      * Starts specific quest by its number.
      *
      * @param questNumber Number of the quest to be started.
+     * @param difficulty
      */
-    public static void startQuest(int questNumber)
+    public static void startQuest(int questNumber, EDifficulty difficulty)
     {
-        Quest quest = new Quest(questNumber, initializeHeroes());
-
-        activeGameLoop = new GameLoop(quest);
-
-        activeGameLoop.firstExecutePhase();
+        activeQuest = new Quest(questNumber,
+                                difficulty,
+                                initializeHeroes(),
+                                new GameLoop());
+        
+        activeQuest.getGameLoop().setActiveQuest(activeQuest);
+        
+        activeQuest.getGameLoop().firstExecutePhase();
     }
 
     /**
@@ -46,28 +55,38 @@ public class QuestController
         //Anpassungsmoeglichkeit durch Spieler hinzufuegen
 
         Hero[] heroesToSort = new Hero[IGameConstants.HERO_COUNT];
-        heroesToSort[0] = new Hero(HeroEnum.HERO1);
-        heroesToSort[1] = new Hero(HeroEnum.HERO2);
-        heroesToSort[2] = new Hero(HeroEnum.HERO3);
-        heroesToSort[3] = new Hero(HeroEnum.HERO4);
+        heroesToSort[0] = new Hero(EHero.HERO1);
+        heroesToSort[1] = new Hero(EHero.HERO2);
+        heroesToSort[2] = new Hero(EHero.HERO3);
+        heroesToSort[3] = new Hero(EHero.HERO4);
 
         /*
-         Sortieren der Helden nach Bewegungspunkten (spaeter durch
-         Initiative) und Rueckgabe an die Quest
+         * Sortieren der Helden nach Bewegungspunkten (spaeter durch
+         * Initiative) und Rueckgabe an die Quest
          */
-        PlayerHeap heap = new PlayerHeap(IGameConstants.HERO_COUNT);
+        PlayerHeap playerHeap = new PlayerHeap(IGameConstants.HERO_COUNT);
 
         for (int i = 0; i < heroesToSort.length; i++)
         {
-            heap.add(heroesToSort[i]);
+            playerHeap.add(heroesToSort[i]);
         }
 
         for (int i = 0; i < heroesToSort.length; i++)
         {
-            heroesToSort[i] = (Hero) heap.get();
+            heroesToSort[i] = (Hero) playerHeap.get();
         }
 
         return heroesToSort;
+    }
+
+    public static void selectHero(EHero heroType)
+    {
+
+    }
+
+    public static void removeHero(EHero heroType)
+    {
+
     }
 
     /**
@@ -79,13 +98,61 @@ public class QuestController
     {
         if (successfully)
         {
-            //Erfahrung, Gegenstände, Spielstand aktualisieren
+            System.out.println("aaa");
         } else
         {
             //
         }
 
-        activeGameLoop = null;
+        activeQuest = null;
+    }
+
+    public static boolean isQuestObjectiveAchieved(Quest quest)
+    {
+        switch (quest.getQuestNumber())
+        {
+            case 1:
+                return isAllTilesExplored(quest);
+            case 2:
+                return isAllEnemiesDead(quest);
+            case 3:
+                return isAllEnemiesDead(quest);
+            case 4:
+                return isAllEnemiesDead(quest);
+            case 5:
+                return isAllEnemiesDead(quest);
+            default:
+                return isAllEnemiesDead(quest);
+        }
+    }
+
+    private static boolean isAllEnemiesDead(Quest quest)
+    {
+        boolean allEnemiesDead = true;
+
+        for (Enemy enemy : quest.getEnemies())
+        {
+            if (allEnemiesDead && !enemy.isAlive())
+            {
+                allEnemiesDead = false;
+            }
+        }
+        return allEnemiesDead;
+    }
+
+    private static boolean isAllTilesExplored(Quest quest)
+    {
+        boolean allTilesExplored = true;
+
+        for (Tile tile : quest.getGameBoard().getTilesList())
+        {
+            if (allTilesExplored && !tile.isVisible())
+            {
+                allTilesExplored = false;
+            }
+        }
+
+        return allTilesExplored;
     }
 
     /**
@@ -96,66 +163,56 @@ public class QuestController
      */
     public static String getFilePathToQuestMap(int questNumber)
     {
-        //getRandomDiceInteger von 1 bis 3 (da 3 Maps pro Quest verfuegbar)
         switch (questNumber)
         {
             case IGameConstants.QUEST_1_INT:
-                switch (Dice.getRandomInteger(1, 3))
-                {
-                    case 1:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                    case 2:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                    case 3:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                }
-                break;
+                return getRandomMap(IFileConstants.FILE_PATH_Q1_M1,
+                                    IFileConstants.FILE_PATH_Q1_M2,
+                                    IFileConstants.FILE_PATH_Q1_M3);
             case IGameConstants.QUEST_2_INT:
-                switch (Dice.getRandomInteger(1, 3))
-                {
-                    case 1:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                    case 2:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                    case 3:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                }
-                break;
+                return getRandomMap(IFileConstants.FILE_PATH_Q2_M1,
+                                    IFileConstants.FILE_PATH_Q2_M2,
+                                    IFileConstants.FILE_PATH_Q2_M3);
             case IGameConstants.QUEST_3_INT:
-                switch (Dice.getRandomInteger(1, 3))
-                {
-                    case 1:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                    case 2:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                    case 3:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                }
-                break;
+                return getRandomMap(IFileConstants.FILE_PATH_Q3_M1,
+                                    IFileConstants.FILE_PATH_Q3_M2,
+                                    IFileConstants.FILE_PATH_Q3_M3);
             case IGameConstants.QUEST_4_INT:
-                switch (Dice.getRandomInteger(1, 3))
-                {
-                    case 1:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                    case 2:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                    case 3:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                }
-                break;
+                return getRandomMap(IFileConstants.FILE_PATH_Q4_M1,
+                                    IFileConstants.FILE_PATH_Q4_M2,
+                                    IFileConstants.FILE_PATH_Q4_M3);
             case IGameConstants.QUEST_5_INT:
-                switch (Dice.getRandomInteger(1, 3))
-                {
-                    case 1:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                    case 2:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                    case 3:
-                        return IFileConstants.FILE_PATH_Q1_M1;
-                }
-                break;
+                return getRandomMap(IFileConstants.FILE_PATH_Q5_M1,
+                                    IFileConstants.FILE_PATH_Q5_M2,
+                                    IFileConstants.FILE_PATH_Q5_M3);
         }
         return null;
+    }
+
+    /**
+     * Returns filepath to one of the given filepaths.
+     *
+     * @param filepathMap1
+     * @param filepathMap2
+     * @param filepathMap3
+     * @return one random filepath of the given ones
+     */
+    private static String getRandomMap(String filepathMap1,
+                                       String filepathMap2,
+                                       String filepathMap3)
+    {
+        //getRandomDiceInteger von 1 bis 3 (da 3 Maps pro Quest verfuegbar)
+        switch (Dice.getRandomInteger(1, 3))
+        {
+            case 1:
+                return filepathMap1;
+            case 2:
+                return filepathMap2;
+            case 3:
+                return filepathMap3;
+            default:
+                return filepathMap1;
+        }
     }
 
     /**
@@ -224,13 +281,18 @@ public class QuestController
         return questDone;
     }
 
-    public static GameLoop getActiveGameLoop()
+    public static Quest getActiveQuest()
     {
-        return activeGameLoop;
+        return activeQuest;
     }
 
-    public static void setActiveGameLoop(GameLoop activeGameLoop)
+    public Hero[] getSelectedHeroes()
     {
-        QuestController.activeGameLoop = activeGameLoop;
+        return selectedHeroes;
+    }
+
+    public void setSelectedHeroes(Hero[] playerHeap)
+    {
+        this.selectedHeroes = playerHeap;
     }
 }

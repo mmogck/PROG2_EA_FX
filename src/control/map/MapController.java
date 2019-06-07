@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.figure.Enemy;
-import model.figure.EnemyEnum;
+import model.figure.EEnemy;
 import model.figure.Hero;
 import model.ingamemanagement.Quest;
 import model.map.ESquare;
@@ -39,22 +39,44 @@ public class MapController
      */
     public static void resetMarks(GameBoard gameBoard)
     {
-        for (int i = 0; i < IGameConstants.GAMEBOARD_TILES_HEIGHT; i++)
+        resetTiles(gameBoard);
+    }
+
+    /**
+     * Resets the marks for the tiles.
+     *
+     * @param gameboard
+     */
+    private static void resetTiles(GameBoard gameboard)
+    {
+        for (int tiles_y = 0; tiles_y < IGameConstants.GAMEBOARD_TILES_HEIGHT; tiles_y++)
         {
-            for (int j = 0; j < IGameConstants.GAMEBOARD_TILES_WIDTH; j++)
+            for (int tiles_x = 0; tiles_x < IGameConstants.GAMEBOARD_TILES_WIDTH; tiles_x++)
             {
-                for (int k = 0; k < IGameConstants.GAMEBOARD_SQUARES_HEIGHT;
-                     k++)
-                {
-                    for (int l = 0;
-                         l < IGameConstants.GAMEBOARD_SQUARES_WIDTH;
-                         l++)
-                    {
-                        gameBoard.getTileAtTilePosition(j, i)
-                                .getSquareAtSquarePosition(l, k)
-                                .setMarked(false);
-                    }
-                }
+                resetSquares(gameboard, tiles_x, tiles_y);
+            }
+        }
+    }
+
+    /**
+     * Reset the squares in a tile.
+     *
+     * @param gameBoard
+     * @param tiles_x x value of tile position
+     * @param tiles_y y value of tile position
+     */
+    private static void resetSquares(GameBoard gameBoard, int tiles_x, int tiles_y)
+    {
+        for (int squares_y = 0; squares_y < IGameConstants.GAMEBOARD_SQUARES_HEIGHT;
+             squares_y++)
+        {
+            for (int squares_x = 0;
+                 squares_x < IGameConstants.GAMEBOARD_SQUARES_WIDTH;
+                 squares_x++)
+            {
+                gameBoard.getTileAtTilePosition(tiles_x, tiles_y)
+                        .getSquareAtSquarePosition(squares_x, squares_y)
+                        .setMarked(false);
             }
         }
     }
@@ -180,15 +202,15 @@ public class MapController
                                   IGameConstants.GAMEBOARD_TILES_HEIGHT);
 
         //Y-Wert der Tiles
-        for (int y = 0; y < gameBoard.getHeight(); y++)
+        for (int tiles_y = 0; tiles_y < gameBoard.getHeight(); tiles_y++)
         {
             //X-Wert der Tiles
-            for (int x = 0; x < gameBoard.getWidth(); x++)
+            for (int tiles_x = 0; tiles_x < gameBoard.getWidth(); tiles_x++)
             {
                 //Neues Tile auf dem GameBoard platzieren
-                gameBoard.setTileAtTilePosition(x, y,
+                gameBoard.setTileAtTilePosition(tiles_x, tiles_y,
                                                 getNewTileFromJsonMap(
-                                                        jsonMap, x, y));
+                                                        jsonMap, tiles_x, tiles_y));
             }
         }
 
@@ -212,10 +234,10 @@ public class MapController
                         isTileStartTile(new Position(tile_x, tile_y), jsonMap));
 
         //Y-Wert der Squares
-        for (int k = 0; k < newTile.getHeight(); k++)
+        for (int squares_y = 0; squares_y < newTile.getHeight(); squares_y++)
         {
             //X-Wert der Squares
-            for (int l = 0; l < newTile.getWidth(); l++)
+            for (int squares_x = 0; squares_x < newTile.getWidth(); squares_x++)
             {
                 try
                 {
@@ -226,12 +248,12 @@ public class MapController
                                                     tile_x,
                                                     tile_y),
                                             new Position(
-                                                    l, k)
+                                                    squares_x, squares_y)
                                     )
                             )
                     ),
-                                        l,
-                                        k);
+                                        squares_x,
+                                        squares_y);
                 } catch (InvalidSquareCharacterException ex)
                 {
                     //Fehler wenn aus dem Char kein Square
@@ -466,15 +488,15 @@ public class MapController
         private class JsonEnemy
         {
 
-            private EnemyEnum enemyType;
+            private EEnemy enemyType;
             private Position position;
 
-            public JsonEnemy(EnemyEnum enemyType)
+            public JsonEnemy(EEnemy enemyType)
             {
                 this.enemyType = enemyType;
             }
 
-            public EnemyEnum getEnemyType()
+            public EEnemy getEnemyType()
             {
                 return this.enemyType;
             }

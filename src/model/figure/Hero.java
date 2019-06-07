@@ -14,6 +14,8 @@ import model.misc.Position;
 public class Hero extends Figure
 {
 
+    private EHero heroType;
+
     public Hero(int healthPoints,
                 int attackPower,
                 int armorClass,
@@ -31,7 +33,7 @@ public class Hero extends Figure
               sprite);
     }
 
-    public Hero(HeroEnum hero)
+    public Hero(EHero hero)
     {
         super(hero.getHealthPoints(),
               hero.getAttackPower(),
@@ -40,6 +42,12 @@ public class Hero extends Figure
               hero.getPosition(),
               hero.getEquipment(),
               hero.getSprite());
+        this.heroType = hero;
+    }
+
+    public EHero getHeroType()
+    {
+        return heroType;
     }
 
     @Override

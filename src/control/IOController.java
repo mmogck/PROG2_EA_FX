@@ -2,11 +2,13 @@ package control;
 
 import control.gamemanagement.QuestController;
 import control.ingamemanagement.MoveController;
+import control.map.MapController;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import model.figure.Hero;
 import model.gamemanagement.EClickOnGameboardStatus;
 import model.ingamemanagement.Quest;
+import model.misc.EDifficulty;
 import model.misc.Position;
 import resources.gameconstants.IGameConstants;
 import view.IOColor;
@@ -39,6 +41,20 @@ public class IOController
     public static void printMessage(String text, Color color)
     {
         getIngameSceneController().printInfoText(text, color);
+    }
+
+    public static void printIngameGui(Quest quest)
+    {
+        MapController.resetMarks(quest.getGameBoard());
+
+        IOController.setupGuiForPhase(quest.getGameLoop().getActivePhase());
+
+        IOController.printGameBoard(quest);
+
+        IOController.printHeroInfo(quest.getActiveHero());
+        IOController
+                .printActivePhase(quest.getGameLoop().getActivePhase(),
+                                  quest.getGameLoop().getHeroActionPoints());
     }
 
     public static void printGameBoard(Quest quest)
@@ -99,11 +115,9 @@ public class IOController
             case NEW_POSITION:
                 MoveController.startHeroMovement(
                         QuestController
-                        .getActiveGameLoop()
                         .getActiveQuest()
                         .getActiveHero(),
                         QuestController
-                        .getActiveGameLoop()
                         .getActiveQuest(),
                         position);
                 break;
@@ -119,8 +133,7 @@ public class IOController
             case GET_INFO:
                 getIngameSceneController()
                         .printFieldInfo(position,
-                                        QuestController
-                                        .getActiveGameLoop().getActiveQuest());
+                                        QuestController.getActiveQuest());
                 break;
 
             default:
@@ -132,23 +145,21 @@ public class IOController
     {
         MoveController
                 .initializeHeroMovement(QuestController
-                        .getActiveGameLoop()
                         .getActiveQuest()
                         .getActiveHero(),
                                         QuestController
-                                        .getActiveGameLoop()
                                         .getActiveQuest());
     }
 
     public static void resetHeroMovement()
     {
         MoveController.resetHeroMovement(
-                QuestController.getActiveGameLoop().getActiveQuest());
+                QuestController.getActiveQuest());
     }
 
     public static void nextPhase()
     {
-        QuestController.getActiveGameLoop().nextPhase();
+        QuestController.getActiveQuest().getGameLoop().nextPhase();
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -160,6 +171,16 @@ public class IOController
     public static void deleteSavegame()
     {
 
+    }
+
+    public static void startQuest()
+    {
+        QuestController.startQuest(1, EDifficulty.MEDIUM);
+    }
+
+    public static void endQuest(boolean successfully)
+    {
+        QuestController.getActiveQuest().end(successfully);
     }
 
     public static void showOptions()
@@ -180,15 +201,5 @@ public class IOController
     public static void showStats()
     {
 
-    }
-
-    public static void movePlayer(Hero hero, Quest quest)
-    {
-        MoveController.initializeHeroMovement(hero, quest);
-    }
-
-    public static Position getNewPositionInput()
-    {
-        return IOConsoleController.getNewPositionInput();
     }
 }

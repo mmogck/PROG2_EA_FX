@@ -28,7 +28,7 @@ public class Enemy extends Figure
      * @param position 
      */
     
-    public Enemy(EnemyEnum enemyType, Position position)
+    public Enemy(EEnemy enemyType, Position position)
     {
         super(enemyType.getHealthPoints(),
               enemyType.getAttackPower(),

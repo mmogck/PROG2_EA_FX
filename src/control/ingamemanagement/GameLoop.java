@@ -15,22 +15,17 @@ import resources.gameconstants.IGamebalanceConstants;
  */
 public class GameLoop extends Thread
 {
-
-    private final Quest activeQuest;
-
+    private Quest activeQuest;
+    
     private String activePhase;
     private boolean foundNewTile;
     private int heroActionPoints;
 
     /**
      * Constructor of GameLoop class.
-     *
-     * @param quest
      */
-    public GameLoop(Quest quest)
+    public GameLoop()
     {
-        this.activeQuest = quest;
-
         this.activePhase = IGameConstants.HERO_PHASE;
         this.heroActionPoints = IGamebalanceConstants.HERO_ACTION_POINTS;
         this.foundNewTile = false;
@@ -58,7 +53,7 @@ public class GameLoop extends Thread
     {
         if (!this.activeQuest.isQuestObjectiveAchieved())
         {
-            printGUI();
+            IOController.printIngameGui(this.activeQuest);
 
             switch (this.activePhase)
             {
@@ -78,22 +73,11 @@ public class GameLoop extends Thread
                 default:
                     break;
             }
+        } else
+        {
+            //Beendent die aktuelle Quest erfolgreich
+            IOController.endQuest(true);
         }
-    }
-
-    /**
-     * Method for printing all important informations to the GUI.
-     */
-    private void printGUI()
-    {
-        MapController.resetMarks(this.getActiveQuest().getGameBoard());
-
-        IOController.setupGuiForPhase(activePhase);
-
-        IOController.printGameBoard(this.activeQuest);
-
-        IOController.printHeroInfo(this.getActiveQuest().getActiveHero());
-        IOController.printActivePhase(this.activePhase, this.heroActionPoints);
     }
 
     /**
@@ -135,7 +119,6 @@ public class GameLoop extends Thread
     {
         for (Enemy enemy : this.activeQuest.getEnemies())
         {
-            System.out.println(enemy.toString());
             //Gegner ist auf Held fokussiert, lebt und ist aktiv
             if (enemy.getFocusedHero() == this.activeQuest.getActiveHero()
                 && enemy.isAlive()
@@ -147,6 +130,8 @@ public class GameLoop extends Thread
                 enemy.attack(enemy.getFocusedHero());
             }
         }
+
+        IOController.printIngameGui(this.activeQuest);
     }
 
     /**
@@ -240,6 +225,11 @@ public class GameLoop extends Thread
     public Quest getActiveQuest()
     {
         return activeQuest;
+    }
+    
+    public void setActiveQuest(Quest quest)
+    {
+        this.activeQuest = quest;
     }
 
     public String getActivePhase()

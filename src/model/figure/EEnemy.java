@@ -9,7 +9,7 @@ import view.ESprites;
  *
  * @author Markus Mogck
  */
-public enum EnemyEnum
+public enum EEnemy
 {
 
     ENEMY1(100, 10, 2, null, ESprites.ENEMY.getImage()),
@@ -18,7 +18,7 @@ public enum EnemyEnum
     ENEMY4(100, 25, 8, null, ESprites.ENEMY.getImage()),
     ENEMY5(100, 50, 10, null, ESprites.ENEMY.getImage());
 
-    private EnemyEnum(int healthPoints,
+    private EEnemy(int healthPoints,
                       int attackPower,
                       int armorClass,
                       Equipment equipment,

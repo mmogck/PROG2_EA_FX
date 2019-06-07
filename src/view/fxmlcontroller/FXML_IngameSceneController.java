@@ -1,7 +1,6 @@
 package view.fxmlcontroller;
 
 import control.IOController;
-import control.gamemanagement.QuestController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
@@ -390,8 +389,7 @@ public class FXML_IngameSceneController implements Initializable
     @FXML
     private void handleMenuFileNewQuestAction(ActionEvent event)
     {
-        //Mit IOController ersetzen
-        QuestController.startQuest(1);
+        IOController.startQuest();
     }
 
     @FXML

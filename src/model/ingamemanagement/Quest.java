@@ -1,11 +1,13 @@
 package model.ingamemanagement;
 
 import control.gamemanagement.QuestController;
+import control.ingamemanagement.GameLoop;
 import control.map.MapController;
 import java.util.ArrayList;
 import model.figure.Enemy;
 import model.figure.Hero;
 import model.map.GameBoard;
+import model.misc.EDifficulty;
 
 /**
  * Quest Class with all the important informations about the Quest. This class
@@ -16,20 +18,27 @@ import model.map.GameBoard;
 public class Quest
 {
 
-    private int questNumber;
+    private final int questNumber;
+    private final EDifficulty difficulty;
     private final String filePathToMap;
 
-    private GameBoard gameBoard;
+    private final GameLoop gameLoop;
+
+    private final GameBoard gameBoard;
 
     private Hero activeHero;
 
     private Hero[] heroes;
     private ArrayList<Enemy> enemies;
 
-    public Quest(int questNumber, Hero[] heroes)
+    public Quest(int questNumber, EDifficulty difficulty,
+                 Hero[] heroes, GameLoop gameLoop)
     {
         this.questNumber = questNumber;
+        this.difficulty = difficulty;
         this.filePathToMap = QuestController.getFilePathToQuestMap(questNumber);
+
+        this.gameLoop = gameLoop;
 
         this.gameBoard = MapController.getNewGameBoard(this.filePathToMap);
 
@@ -42,57 +51,62 @@ public class Quest
     /**
      * Method to check if quest objective is achieved.
      *
-     * @return true is quest objective is achieved
+     * @return true if quest objective is achieved
      */
     public boolean isQuestObjectiveAchieved()
     {
-        return false;
+        return QuestController.isQuestObjectiveAchieved(this);
+    }
+
+    /**
+     * Calls Method to end the active quest.
+     *
+     * @param successfully true if quest objective is achieved
+     */
+    public void end(boolean successfully)
+    {
+        QuestController.endQuest(successfully);
     }
 
     //Getter and Setter
     public int getQuestNumber()
     {
-        return questNumber;
+        return this.questNumber;
     }
 
-    public void setQuestNumber(int questNumber)
+    public EDifficulty getDifficulty()
     {
-        this.questNumber = questNumber;
+        return this.difficulty;
+    }
+
+    public String getFilePathToMap()
+    {
+        return this.filePathToMap;
+    }
+
+    public GameLoop getGameLoop()
+    {
+        return this.gameLoop;
     }
 
     public GameBoard getGameBoard()
     {
-        return gameBoard;
-    }
-
-    public void setGameBoard(GameBoard gameBoard)
-    {
-        this.gameBoard = gameBoard;
+        return this.gameBoard;
     }
 
     public Hero[] getHeroes()
     {
-        return heroes;
-    }
-
-    public void setHeroes(Hero[] heroes)
-    {
-        this.heroes = heroes;
+        return this.heroes;
     }
 
     public ArrayList<Enemy> getEnemies()
     {
-        return enemies;
-    }
-
-    public void setEnemies(ArrayList<Enemy> enemies)
-    {
-        this.enemies = enemies;
+        return this.enemies;
     }
 
     public Hero getActiveHero()
     {
-        return activeHero;
+        return this.activeHero;
     }
 
     public void setActiveHero(Hero activeHero)
